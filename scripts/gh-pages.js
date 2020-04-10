@@ -1,5 +1,5 @@
-import ghpages from 'gh-pages'
-import config from './config/config'
+var ghpages = require('gh-pages');
+var config = require('./../config/config.json');
 
 ghpages.publish(
     `__sapper__/export/${config.repository}`,
