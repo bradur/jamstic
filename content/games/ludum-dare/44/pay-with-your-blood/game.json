@@ -1,0 +1,73 @@
+{
+    "id": 149712,
+    "parent": 139254,
+    "superparent": 9,
+    "author": 214,
+    "type": "item",
+    "subtype": "game",
+    "subsubtype": "compo",
+    "published": "2019-04-28T20:47:33Z",
+    "created": "2019-04-27T07:36:46Z",
+    "modified": "2019-04-28T20:47:33Z",
+    "version": 442214,
+    "slug": "pay-with-your-blood",
+    "name": "Pay With Your Blood",
+    "body": "# Pay With Your Blood\n\n## Gameplay\nMission: Kill all enemies.\nBuy weapons from shop. Pay with your blood!\n\n## Keys\n| Key(s)              | Action           |\n| --------------------|:----------------:|\n| Arrows / WASD       | Move             | \n| Spacebar / LMB      | Shoot            |\n| Mouse               | Aim              |\n| Numbers / Scroll    | Switch weapon    |\n| Esc                 | Open pause menu  |\n\n\n![2019-04-28_23-42-20 Unity WebGL Player _ Pay With Your Blood.png](ludum-dare/44/pay-with-your-blood/images/2119e.png)\n\n![2019-04-28_23-42-32 Unity WebGL Player _ Pay With Your Blood.png](ludum-dare/44/pay-with-your-blood/images/2119f.png)\n\n\n\n\n\n",
+    "meta": {
+        "author": [
+            214
+        ],
+        "cover": "///content/6d/z/2119d.png",
+        "allow-anonymous-comments": "1",
+        "link-01": "https://bradur.github.io//LD44/",
+        "link-01-tag": "42336",
+        "link-02": "https://github.com/bradur/LD44",
+        "link-02-tag": "42332"
+    },
+    "path": "/events/ludum-dare/44/pay-with-your-blood",
+    "parents": [
+        1,
+        5,
+        9,
+        139254
+    ],
+    "love": 0,
+    "notes": 13,
+    "notes-timestamp": "2019-05-07T12:01:49Z",
+    "grade": {
+        "grade-01": 23,
+        "grade-02": 23,
+        "grade-03": 23,
+        "grade-04": 23,
+        "grade-05": 23,
+        "grade-06": 22,
+        "grade-07": 21,
+        "grade-08": 23
+    },
+    "magic": {
+        "cool": 101.43479354265,
+        "feedback": 18,
+        "given": 22.25,
+        "grade": 22.625,
+        "grade-01-average": 3.167,
+        "grade-01-result": 343,
+        "grade-02-average": 2.929,
+        "grade-02-result": 359,
+        "grade-03-average": 2.619,
+        "grade-03-result": 420,
+        "grade-04-average": 3.81,
+        "grade-04-result": 65,
+        "grade-05-average": 2.571,
+        "grade-05-result": 446,
+        "grade-06-average": 3.05,
+        "grade-06-result": 233,
+        "grade-07-average": 2.184,
+        "grade-07-result": 351,
+        "grade-08-average": 2.881,
+        "grade-08-result": 334,
+        "smart": 17.525123680567
+    },
+    "eventName": "Ludum Dare 44",
+    "cover": "ludum-dare/44/pay-with-your-blood/images/2119d.png",
+    "url": "games\\ludum-dare\\44\\pay-with-your-blood"
+}

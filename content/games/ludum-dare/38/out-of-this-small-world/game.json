@@ -1,0 +1,52 @@
+{
+    "id": 15904,
+    "parent": 9405,
+    "superparent": 9,
+    "author": 214,
+    "type": "item",
+    "subtype": "game",
+    "subsubtype": "compo",
+    "published": "2017-04-24T00:12:43Z",
+    "created": "2017-04-21T21:19:56Z",
+    "modified": "2017-04-24T00:12:43Z",
+    "version": 41817,
+    "slug": "out-of-this-small-world",
+    "name": "Out of This Small World",
+    "body": "![flippers.png](ludum-dare/38/out-of-this-small-world/images/8f1.png)\n\n**Out of This Small World** is a puzzle game, where you're on a small planet.\nYou must use the curvature of the planet to your advantage! (hint: the map loops on itself).\nStep through the portal and get Out of This Small World (just to find another one behind the portal).\n\n## Download:\n* **Windows:** https://github.com/bradur/LD38/releases/download/1.0/OutofThisSmallWorld_win.zip\n* **Max OSX:** https://github.com/bradur/LD38/releases/download/1.0/OutofThisSmallWorld_mac.zip\n* **Linux:** https://github.com/bradur/LD38/releases/download/1.0/OutofThisSmallWorld_linux.zip\n\n*Only the Windows version has been tested*\n\n*Meant to be run at a 16:9 resolution*\n\n## Keys:\n\n- Arrow Keys: Move\n- Esc: Open menu\n- (hold) Right Shift: Sprint while moving forward\n- Space: Chop tree (when equipped with an axe and targeting a tree)\n- Right Ctrl: Unlock a door (when equipped with a key and targeting a door)\n- F1: Toggle info\n- P: Mute audio\n\n## Tips:\n\n- Some switches only work once, some work endlessly\n- Axes are poorly made. They can only withstand chopping down one tree before they break!\n- If you have flippers you can walk on water (no time to implement swimming animation!).\n\n## Bugs:\n\n- The looping world was implemented very poorly. Bugs related to that are bound to happen.\n- Sometimes a tree just won't go down. Restarting the level should do the trick! (Esc and Q).\n\n## More screenshots\n![yellowkey.png](ludum-dare/38/out-of-this-small-world/images/8ed.png)\n![screen_1492988936.05.png](ludum-dare/38/out-of-this-small-world/images/8ea.png)\n\n## Links\n* **TWITTER:** https://twitter.com/bradurdung\n* **SOURCE CODE:** https://github.com/bradur/LD38",
+    "meta": {
+        "cover": "///content/6d/z/6a38.png",
+        "author": [
+            214
+        ]
+    },
+    "path": "/events/ludum-dare/38/out-of-this-small-world",
+    "parents": [
+        1,
+        5,
+        9,
+        9405
+    ],
+    "love": 0,
+    "notes": 2,
+    "notes-timestamp": "2017-05-07T23:01:16Z",
+    "grade": {
+        "grade-01": 2,
+        "grade-02": 2,
+        "grade-03": 2,
+        "grade-04": 2,
+        "grade-05": 2,
+        "grade-06": 2,
+        "grade-07": 1,
+        "grade-08": 1
+    },
+    "magic": {
+        "cool": 0,
+        "feedback": 0,
+        "given": 0,
+        "grade": 1.75,
+        "smart": -24.407105398155
+    },
+    "eventName": "Ludum Dare 38",
+    "cover": "ludum-dare/38/out-of-this-small-world/images/6a38.png",
+    "url": "games\\ludum-dare\\38\\out-of-this-small-world"
+}

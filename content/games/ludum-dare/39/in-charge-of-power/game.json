@@ -1,0 +1,67 @@
+{
+    "id": 33150,
+    "parent": 32802,
+    "superparent": 9,
+    "author": 214,
+    "type": "item",
+    "subtype": "game",
+    "subsubtype": "compo",
+    "published": "2017-07-31T00:25:57Z",
+    "created": "2017-07-12T13:58:31Z",
+    "modified": "2017-07-31T00:25:57Z",
+    "version": 111447,
+    "slug": "in-charge-of-power",
+    "name": "In Charge of Power",
+    "body": "**A new city has been built! But who turned off the lights?**\n\n![2017-07-31 02_56_16-Greenshot (Custom) (2).png](ludum-dare/39/in-charge-of-power/images/5e1a.png)\n\n*In Charge of Power* is a game in which you are responsible for providing electricity for a recently founded city. As the city gains more citizens, the need for electricity grows steadily. Will you be able to provide for the city, or will you run out of power and become a disappointment? See if you can help the city grow to a population of **one hundred citizens**!\n\n![2017-07-31 02_56_57-Greenshot (Custom) (2).png](ludum-dare/39/in-charge-of-power/images/5e1b.png)\n\n*How to play*\n1. Use your mouse to hover over things and perhaps click some of those things.\n2. The game should be able to tell you which things are worth clicking.\n3. For adventurous folks the game also reacts to scrolling of the wheel and panning of the screen.\n\n![2017-07-31 02_57_28-Greenshot (Custom) (2).png](ludum-dare/39/in-charge-of-power/images/5e26.png)\n\n*I have only tested the Windows build with these resolutions: 1280x720, 1920x1080, 2560x1440.*\n\n![2017-07-31 02_57_04-Greenshot (Custom) (2).png](ludum-dare/39/in-charge-of-power/images/5e24.png)\n\n",
+    "meta": {
+        "cover": "///content/6d/z/5d9e.png",
+        "link-01": "https://github.com/bradur/LD39/",
+        "link-02": "https://github.com/bradur/LD39/releases/download/release/In.Charge.of.Power.-.LD39.by.bradur.Windows.zip",
+        "link-02-tag": "42337",
+        "link-03": "https://github.com/bradur/LD39/releases/download/release/In.Charge.of.Power.-.LD39.by.bradur.Mac.zip",
+        "link-03-tag": "42339",
+        "link-04": "https://github.com/bradur/LD39/releases/download/release/In.Charge.of.Power.-.LD39.by.bradur.Mac.zip",
+        "link-04-tag": "42341",
+        "author": [
+            214
+        ]
+    },
+    "path": "/events/ludum-dare/39/in-charge-of-power",
+    "parents": [
+        1,
+        5,
+        9,
+        32802
+    ],
+    "love": 0,
+    "notes": 3,
+    "notes-timestamp": "2017-08-21T11:45:20Z",
+    "grade": {
+        "grade-01": 3,
+        "grade-02": 3,
+        "grade-03": 3,
+        "grade-04": 3,
+        "grade-05": 3,
+        "grade-06": 3,
+        "grade-07": 3,
+        "grade-08": 3
+    },
+    "magic": {
+        "cool": 0,
+        "feedback": 0,
+        "given": 0,
+        "grade": 3,
+        "grade-01-average": 3,
+        "grade-02-average": 3,
+        "grade-03-average": 3,
+        "grade-04-average": 3,
+        "grade-05-average": 3,
+        "grade-06-average": 3,
+        "grade-07-average": 2,
+        "grade-08-average": 3,
+        "smart": -42.264973081037
+    },
+    "eventName": "Ludum Dare 39",
+    "cover": "ludum-dare/39/in-charge-of-power/images/5d9e.png",
+    "url": "games\\ludum-dare\\39\\in-charge-of-power"
+}
