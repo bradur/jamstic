@@ -41,12 +41,12 @@
 <h2>LDJam</h2>
 <div class="games-container">
 {#each games as game}
-    <div class="game-container">
+    <a class="game-container" href="{ game.url }">
         <h3>{game.name}</h3>
         <span>{game.eventName}</span>
         <div class="game-picture-container">
-            <img class="game-picture" src="{game.cover}" alt="Cover picture of {game.name}">
+            <img class="game-picture" src="{ game.cover }" alt="Cover picture of { game.name }">
         </div>
-    </div>
+    </a>
 {/each}
 </div>
