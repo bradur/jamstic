@@ -82,7 +82,7 @@ const transformData = (data) =>
             body: makeUrlsLocal(game.body, game.path),
             eventName: parseEventName(game.path),
             cover: createLocalImagePath(game.meta.cover, game.path),
-            url: path.join("games/", cleanUpGamePath(game.path))
+            url: path.posix.join("games/", cleanUpGamePath(game.path))
         }
     ))
 
