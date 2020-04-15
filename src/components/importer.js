@@ -1,10 +1,10 @@
 import axios from 'axios'
 import fs from 'fs'
-import _ from 'lodash'
 import path from 'path'
 import config from './../../config/config'
 import mdHelper from './md-helper'
 import glob from 'glob'
+import { has, startCase } from 'lodash'
 
 const apiUrl = 'https://api.ldjam.com/vx/node/'
 const staticUrl = "https://static.jam.vg/"
@@ -13,6 +13,7 @@ const feedLimit = 50 // 50 is max limit in ldjam API. won't hit that in a while
 const getProfile = (name) => axios.get(`${apiUrl}walk/1/users/${name}`);
 const getFeed = (id) => axios.get(`${apiUrl}feed/${id}/authors/item/game?limit=${feedLimit}`)
 const getGames = (feed) => axios.get(`${apiUrl}get/${feed.map(g => g.id).join('+')}`)
+const getPlatforms = () => axios.get('https://api.ldjam.com/vx/tag/get/platform')
 
 const downloadAndSaveFile = (url, savePath) => 
     axios({
@@ -72,19 +73,22 @@ const makeUrlsLocal = (string, gamePath) => {
 
 const parseEventName = (path) => {
     const parts = path.split("/")
-    return _.startCase(parts[2].replace(/-/g, " ") + " " + parts[3])
+    return startCase(parts[2].replace(/-/g, " ") + " " + parts[3])
 }
 
-const transformData = (data) => 
-    data.reverse().map(game => (
+const transformData = async (data) => {
+    const platforms = await getPlatforms()
+    return data.reverse().map(game => (
         {
             ...game,
             body: makeUrlsLocal(game.body, game.path),
             eventName: parseEventName(game.path),
             cover: createLocalImagePath(game.meta.cover, game.path),
-            url: path.posix.join("games/", cleanUpGamePath(game.path))
+            url: path.posix.join("games/", cleanUpGamePath(game.path)),
+            links: getLinks(game, platforms.data.tag)
         }
     ))
+}
 
 const filterOutExistingGames = (oldGames, feed) => {
     const oldGameIds = oldGames.map(game => game.id)
@@ -109,7 +113,28 @@ const saveData = (games) => {
     })
 }
 
+const getLinks = (game, platforms) => {
+    let index = 1
+    let propName = `link-0${index}`
+    const links = []
+    while (has(game.meta, propName)) {
+        const tag = parseInt(game.meta[`${propName}-tag`], 10)
+        const platform = platforms.find(platform => platform.id === tag)
+        const url = game.meta[propName]
+        if (url !== '') {
+            links.push({
+                url: url,
+                title: platform === undefined ? 'Source' : platform.name
+            })
+        }
+        index += 1
+        propName = `link-0${index}`
+    }
+    return links
+}
+
 async function getAll() {
+    
     const profile = await getProfile(config.ldjam.profileName)
     const feed = await getFeed(profile.data.path[1])
     let games = getAllGames()
@@ -123,7 +148,7 @@ async function getAll() {
     } else {
         console.log("No new games found!")
     }
-    const data = transformData(games)
+    const data = await transformData(games)
     saveData(data)
     return data
 }

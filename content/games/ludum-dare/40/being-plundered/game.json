@@ -74,5 +74,27 @@
     },
     "eventName": "Ludum Dare 40",
     "cover": "ludum-dare/40/being-plundered/images/a80e.png",
-    "url": "games/ludum-dare/40/being-plundered"
+    "url": "games/ludum-dare/40/being-plundered",
+    "links": [
+        {
+            "url": "https://github.com/bradur/LD40",
+            "title": "Source"
+        },
+        {
+            "url": "https://bradur.github.io/LD40/",
+            "title": "HTML5 (web)"
+        },
+        {
+            "url": "https://github.com/bradur/LD40/releases/download/Compo/BeingPlundered_Windows_LD40.zip",
+            "title": "Windows"
+        },
+        {
+            "url": "https://github.com/bradur/LD40/releases/download/Compo/BeingPlundered_Mac_LD40.app.zip",
+            "title": "macOS"
+        },
+        {
+            "url": "https://github.com/bradur/LD40/releases/download/Compo/BeingPlundered_Linux_LD40.zip",
+            "title": "Linux"
+        }
+    ]
 }

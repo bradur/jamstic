@@ -73,5 +73,23 @@
     },
     "eventName": "Ludum Dare 42",
     "cover": "ludum-dare/42/slime-janitor/images/167a1.png",
-    "url": "games/ludum-dare/42/slime-janitor"
+    "url": "games/ludum-dare/42/slime-janitor",
+    "links": [
+        {
+            "url": "https://github.com/bradur/LD42",
+            "title": "Source"
+        },
+        {
+            "url": "https://github.com/bradur/LD42/releases/download/entry/Ludum.Dare.Slime.Janitor.windows.zip",
+            "title": "Windows"
+        },
+        {
+            "url": "https://github.com/bradur/LD42/releases/download/entry/Ludum.Dare.Slime.Janitor.mac.app.zip",
+            "title": "macOS"
+        },
+        {
+            "url": "https://github.com/bradur/LD42/releases/download/entry/Ludum.Dare.Slime.Janitor.linux.zip",
+            "title": "Linux"
+        }
+    ]
 }

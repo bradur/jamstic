@@ -2,5 +2,7 @@
 </style>
 
 <svelte:head>
-    <title>Welcome to my site</title>
+    <title>Bradur's</title>
 </svelte:head>
+
+<h1>Hello</h1>

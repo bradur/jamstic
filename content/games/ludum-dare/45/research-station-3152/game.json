@@ -52,5 +52,15 @@
     },
     "eventName": "Ludum Dare 45",
     "cover": "ludum-dare/45/research-station-3152/images/28547.png",
-    "url": "games/ludum-dare/45/research-station-3152"
+    "url": "games/ludum-dare/45/research-station-3152",
+    "links": [
+        {
+            "url": "https://github.com/bradur/LD45/releases/download/entry/Ludum.Dare.-.Research.Station.3152.-.Windows.zip",
+            "title": "Windows"
+        },
+        {
+            "url": "https://bradur.github.io/LD45/",
+            "title": "HTML5 (web)"
+        }
+    ]
 }

@@ -71,5 +71,19 @@
     },
     "eventName": "Ludum Dare 41",
     "cover": "ludum-dare/41/drive-or-die/images/10313.png",
-    "url": "games/ludum-dare/41/drive-or-die"
+    "url": "games/ludum-dare/41/drive-or-die",
+    "links": [
+        {
+            "url": "https://github.com/bradur/LD41",
+            "title": "Windows"
+        },
+        {
+            "url": "https://github.com/bradur/LD41/releases/download/Compo-version/DriveOrDie.zip",
+            "title": "Windows"
+        },
+        {
+            "url": "https://bradur.github.io/LD41/",
+            "title": "HTML5 (web)"
+        }
+    ]
 }

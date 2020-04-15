@@ -69,5 +69,15 @@
     },
     "eventName": "Ludum Dare 44",
     "cover": "ludum-dare/44/pay-with-your-blood/images/2119d.png",
-    "url": "games/ludum-dare/44/pay-with-your-blood"
+    "url": "games/ludum-dare/44/pay-with-your-blood",
+    "links": [
+        {
+            "url": "https://bradur.github.io//LD44/",
+            "title": "HTML5 (web)"
+        },
+        {
+            "url": "https://github.com/bradur/LD44",
+            "title": "Source code"
+        }
+    ]
 }

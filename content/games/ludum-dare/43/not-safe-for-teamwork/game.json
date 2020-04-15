@@ -75,5 +75,27 @@
     },
     "eventName": "Ludum Dare 43",
     "cover": "ludum-dare/43/not-safe-for-teamwork/images/1c26d.png",
-    "url": "games/ludum-dare/43/not-safe-for-teamwork"
+    "url": "games/ludum-dare/43/not-safe-for-teamwork",
+    "links": [
+        {
+            "url": "https://github.com/bradur/LD43",
+            "title": "Source code"
+        },
+        {
+            "url": "https://bradur.github.io/LD43/",
+            "title": "HTML5 (web)"
+        },
+        {
+            "url": "https://github.com/bradur/LD43/releases/download/CompoRelease/Ludum.Dare.43.-.Not.Safe.for.Teamwork.-.Windows.zip",
+            "title": "Windows"
+        },
+        {
+            "url": "https://github.com/bradur/LD43/releases/download/CompoRelease/Ludum.Dare.43.-.Not.Safe.for.Teamwork.-.Mac.OSX.zip",
+            "title": "macOS"
+        },
+        {
+            "url": "https://github.com/bradur/LD43/releases/download/CompoRelease/Ludum.Dare.43.-.Not.Safe.for.Teamwork.-.Linux.zip",
+            "title": "Linux"
+        }
+    ]
 }
