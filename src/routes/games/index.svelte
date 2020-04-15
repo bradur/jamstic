@@ -33,7 +33,7 @@
 </style>
 
 <svelte:head>
-    <title>Games</title>
+    <title>bradur's games</title>
 </svelte:head>
 
 <h1>Games</h1>

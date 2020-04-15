@@ -143,7 +143,7 @@
 </style>
 
 <svelte:head>
-  <title>{game.name}</title>
+  <title>{game.name} - bradur's games</title>
 </svelte:head>
 
 <a class="nav-back" href="games">&lt;- Back</a>
