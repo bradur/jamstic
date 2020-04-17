@@ -1,56 +1,74 @@
 <script>
-    export let segment;
+  export let segment;
 </script>
 
 <style>
-    nav {
-        border-bottom: 1px solid rgba(255,62,0,0.1);
-        font-weight: 300;
-        padding: 0 1em;
-    }
+  nav {
+    border-bottom: 1px solid #eee;
+    font-weight: 300;
+    padding: 0 1em;
+    text-align: center;
+  }
 
-    ul {
-        margin: 0;
-        padding: 0;
-    }
+  ul {
+    margin: 0;
+    padding: 0;
+    width: 1280px;
+    margin: auto;
+    display: inline-block;
+  }
 
-    /* clearfix */
-    ul::after {
-        content: '';
-        display: block;
-        clear: both;
-    }
+  /* clearfix */
+  ul::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
 
-    li {
-        display: block;
-        float: left;
-    }
+  li {
+    display: block;
+    float: left;
+  }
 
-    [aria-current] {
-        position: relative;
-        display: inline-block;
-    }
+  [aria-current] {
+    position: relative;
+    display: inline-block;
+  }
 
-    [aria-current]::after {
-        position: absolute;
-        content: '';
-        width: calc(100% - 1em);
-        height: 2px;
-        background-color: rgb(255,62,0);
-        display: block;
-        bottom: -1px;
-    }
+  [aria-current]::after {
+    position: absolute;
+    content: "";
+    width: calc(100% - 1em);
+    height: 2px;
+    background-color: #ccc;
+    display: block;
+    bottom: -1px;
+  }
 
-    a {
-        text-decoration: none;
-        padding: 1em 0.5em;
-        display: block;
-    }
+  a {
+    text-decoration: none;
+    padding: 1em 0.5em;
+    display: block;
+  }
 </style>
 
 <nav>
-    <ul>
-        <li><a rel=prefetch aria-current='{segment === "blog" ? "page" : undefined}' href='blog'>blog</a></li>
-        <li><a rel=prefetch aria-current='{segment === "games" ? "page" : undefined}' href='games'>games</a></li>
-    </ul>
+  <ul>
+    <li>
+      <a
+        rel="prefetch"
+        aria-current={segment === 'blog' ? 'page' : undefined}
+        href="blog">
+        blog
+      </a>
+    </li>
+    <li>
+      <a
+        rel="prefetch"
+        aria-current={segment === 'games' ? 'page' : undefined}
+        href="games">
+        games
+      </a>
+    </li>
+  </ul>
 </nav>

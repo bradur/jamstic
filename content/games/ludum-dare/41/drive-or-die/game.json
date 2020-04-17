@@ -85,5 +85,233 @@
             "url": "https://bradur.github.io/LD41/",
             "title": "HTML5 (web)"
         }
-    ]
+    ],
+    "comments": [
+        {
+            "id": 153156,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 3475,
+            "created": "2018-04-23T02:06:38Z",
+            "modified": "2018-04-23T02:06:38Z",
+            "version": 172388,
+            "flags": 0,
+            "body": "Finished the first level with <1 second left! Definitely got pretty tense near the end. haha",
+            "love": 0,
+            "timestamp": "4/23/2018, 04:06:38",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 153235,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 74458,
+            "created": "2018-04-23T02:19:55Z",
+            "modified": "2018-04-23T02:19:55Z",
+            "version": 172471,
+            "flags": 0,
+            "body": "A bit of feedback:\n- The car drifts a bit too much, it feels more like a block of ice, haha\n- Enemies give no indication of where they are coming from and spawn it at weird intervals, making the 1st person pretty annoying. They should come from around buildings (walking before shooting) or have sounds/particle effects when spawning to help guide the player to where they are\n- The Minimap is great 👍\n- The road should be raised just a hair above the grass to remove the black clipping lines where the objects overlap",
+            "love": 1,
+            "love-timestamp": "2018-05-11T20:40:49Z",
+            "timestamp": "4/23/2018, 04:19:55",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 153338,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 34988,
+            "created": "2018-04-23T02:37:37Z",
+            "modified": "2018-04-23T02:37:37Z",
+            "version": 172580,
+            "flags": 0,
+            "body": "I wanted to go a lot faster than I was. Wasn't really sure where to go either. It was fun though. Enjoyed it for a couple minutes.",
+            "love": 0,
+            "timestamp": "4/23/2018, 04:37:37",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 184079,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 5112,
+            "created": "2018-04-26T02:46:41Z",
+            "modified": "2018-04-26T02:46:41Z",
+            "version": 206564,
+            "flags": 0,
+            "body": "So much drift. The concept was interesting and its too bad the driving part made it kind of not fun. Still it was kind of fun. Good work.",
+            "love": 0,
+            "timestamp": "4/26/2018, 04:46:41",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 206181,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 19735,
+            "created": "2018-05-11T07:44:40Z",
+            "modified": "2018-05-11T07:44:40Z",
+            "version": 231159,
+            "flags": 0,
+            "body": "Good minimap!  ",
+            "love": 0,
+            "timestamp": "5/11/2018, 09:44:40",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 206427,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 9823,
+            "created": "2018-05-11T20:16:47Z",
+            "modified": "2018-05-11T20:16:47Z",
+            "version": 231431,
+            "flags": 0,
+            "body": "Generally a really nice idea. Graphics were ok, but the steering felt a little too sensitive. Minimap really did it's job!",
+            "love": 0,
+            "timestamp": "5/11/2018, 22:16:47",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 206434,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 49479,
+            "created": "2018-05-11T20:22:37Z",
+            "modified": "2018-05-11T20:22:37Z",
+            "version": 231438,
+            "flags": 0,
+            "body": "The concept is nice, though the enemy spawns were a bit annoying. Good job :)",
+            "love": 0,
+            "timestamp": "5/11/2018, 22:22:37",
+            "ago": "2 years ago"
+        },
+        {
+            "id": 206444,
+            "parent": 0,
+            "node": 82865,
+            "supernode": 73256,
+            "author": 6459,
+            "created": "2018-05-11T20:51:35Z",
+            "modified": "2018-05-11T20:51:35Z",
+            "version": 231448,
+            "flags": 0,
+            "body": "As others have said, the driving model in this game really breaks it. Turning is way too slow and there is not enough friction. It's difficult enough to drive down a straight road; making a turn without veering off into the grass is basically impossible.\n\nI got through the first two levels with barely enough time left on the clock, but the third seemed like I had to know the map well to actually beat it, since there's branching paths that aren't all visible on the minimap.\n\nI really like the transition animation between the driving and the shooting.\n\nShooting didn't have much weight to it, I just had to locate and click on all the enemies. I wonder if a little bit of kickback on the player camera, or a more visceral death animation would help this section.\n\nI think the driving music was a bit too aggressive and sine-y and grated on me a little after a few levels. The shooting music tones down the frustrating bits so I enjoyed that a lot more. Oh, and it's rare to see a LD game with multiple music tracks so nice work there, and with the transition.\n\nOverall, this game feels like it just needed a lot more love put into its core mechanics (the driving and shooting models), maybe at the cost of the maps and objectives being less fleshed-out, or fewer levels. I know I've made the same mistake myself sometimes, prioritizing content without a good baseline mechanic. Maybe keep that in mind next LD.",
+            "love": 1,
+            "love-timestamp": "2018-05-12T04:26:53Z",
+            "timestamp": "5/11/2018, 22:51:35",
+            "ago": "2 years ago"
+        }
+    ],
+    "event": {
+        "id": 73256,
+        "parent": 9,
+        "superparent": 5,
+        "author": 11,
+        "type": "event",
+        "subtype": "ld",
+        "subsubtype": "",
+        "published": "2018-03-15T01:50:26Z",
+        "created": "2018-03-15T01:50:26Z",
+        "modified": "2018-04-19T16:41:16Z",
+        "version": 226293,
+        "slug": "41",
+        "name": "Ludum Dare 41",
+        "body": "Join us for the **41st** Ludum Dare! Our first event of 2018! Ludum Dare year 16. :smile:\n\nFollow the **[/news](/news)** for the latest updates on the event.\n\n* :closed_book: **Rules**: [/ludum-dare/rules](/events/ludum-dare/rules)\n* :green_book: **Game Hosting Guide**: [/ludum-dare/hosting-guide](/events/ludum-dare/hosting-guide)\n* :earth_americas: **Real World Gatherings**: [/ludum-dare/41/$73264/real-world-gatherings-for-ludum-dare-41](/events/ludum-dare/41/$73264/real-world-gatherings-for-ludum-dare-41)\n* :tv: **Keynote**: [/welcome-to-ludum-dare-41](/events/ludum-dare/41/$73264/welcome-to-ludum-dare-41)\n\n## Promos\n* Free **[GameMaker Studio 2](https://ldjam.com/events/ludum-dare/41/$73264/promo-free-gamemaker-studio-2-for-ld41)** (Good until Wednesday April 25th)",
+        "meta": {
+            "theme-idea-limit": "3",
+            "theme-mode": "8",
+            "event-start": "2018-04-21T01:00:00Z",
+            "event-end": "2018-04-24T01:00:00Z",
+            "can-theme": "1",
+            "can-publish": "1",
+            "can-grade": "0",
+            "event-finished": "1",
+            "event-theme": "Combine 2 Incompatible Genres",
+            "event-group-slug-1": "jam",
+            "event-group-slug-2": "compo",
+            "event-group-name-1": "Jam",
+            "event-group-name-2": "Compo",
+            "grade-01": "Overall",
+            "grade-02": "Fun",
+            "grade-03": "Innovation",
+            "grade-04": "Theme",
+            "grade-05": "Graphics",
+            "grade-06": "Audio",
+            "grade-07": "Humor",
+            "grade-08": "Mood",
+            "grade-05-optional": "1",
+            "grade-06-optional": "1",
+            "grade-07-optional": "1",
+            "grade-08-optional": "1",
+            "theme-page-mode-1": "2",
+            "theme-page-mode-2": "2",
+            "theme-page-mode-3": "2",
+            "theme-page-mode-4": "2",
+            "theme-page-name-4": "Final Round",
+            "event-group-closed-1": "0",
+            "event-group-closed-2": "0"
+        },
+        "path": "/events/ludum-dare/41",
+        "parents": [
+            1,
+            5,
+            9
+        ],
+        "love": 0,
+        "timestamp": "3/15/2018, 03:50:26",
+        "ago": "2 years ago"
+    },
+    "results": [
+        {
+            "title": "Overall",
+            "average": 2.775,
+            "result": 636
+        },
+        {
+            "title": "Fun",
+            "average": 2.65,
+            "result": 617
+        },
+        {
+            "title": "Innovation",
+            "average": 2.675,
+            "result": 627
+        },
+        {
+            "title": "Theme",
+            "average": 3,
+            "result": 587
+        },
+        {
+            "title": "Graphics",
+            "average": 2.4,
+            "result": 636
+        },
+        {
+            "title": "Audio",
+            "average": 2.5,
+            "result": 445
+        },
+        {
+            "title": "Humor",
+            "average": 2.324,
+            "result": 449
+        },
+        {
+            "title": "Mood",
+            "average": 2.474,
+            "result": 585
+        }
+    ],
+    "released": "2018.04.22 11:33:34",
+    "timestamp": "4/22/2018, 22:33:34",
+    "ago": "2 years ago"
 }

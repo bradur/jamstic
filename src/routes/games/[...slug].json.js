@@ -2,7 +2,6 @@
 
 import path from 'path'
 import fs from 'fs'
-import grayMatter from 'gray-matter'
 import marked from 'marked'
 import hljs from 'highlight.js'
 
@@ -44,16 +43,20 @@ export function get(request, response, next) {
         return `<pre class='language-javascriptreact'><code>${highlighted}</code></pre>`
     }
 
-    const { data, content } = grayMatter(game.body)
-    const html = marked(content, { renderer })
+    game.comments = game.comments.map(comment => {
+        return {
+            ...comment,
+            html: marked(comment.body, { renderer })
+        }
+    })
 
-    if (html) {
-        response.writeHead(200, {
-            'Content-Type': 'application/json'
-        })
-        response.end(JSON.stringify({ ...game, body: html }))
-    } else {
-        respondNotFound(response)
-    }
+    response.writeHead(200, {
+        'Content-Type': 'application/json'
+    })
+    response.end(JSON.stringify({
+        ...game,
+        html: marked(game.body, { renderer })
+    }))
+
 
 }

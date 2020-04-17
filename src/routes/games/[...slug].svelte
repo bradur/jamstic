@@ -20,6 +20,14 @@
 <style>
   .game-container {
     border-left: 5px solid #eee;
+    position: relative;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1350px) {
+    .game-container {
+      margin-left: 240px;
+    }
   }
   .game-content :global(h2) {
     font-size: 1.4em;
@@ -41,40 +49,24 @@
     background: #f9f9f9;
     padding: 5px 20px;
   }
-  .game-title,
-  .game-cover {
-    display: inline-block;
-    vertical-align: top;
-    margin: auto;
-  }
   .game-title {
     margin: auto;
-    text-align: center;
-    width: 50%;
+    text-align: left;
     font-size: 50px;
-  }
-  .game-info {
+    padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    height: 220px;
-    background: #fff;
+    height: 200px;
     border-bottom: 5px solid #eee;
   }
-  .game-cover {
-    display: flex;
-    margin: 0;
-    height: 100%;
-    width: 50%;
-    box-sizing: border-box;
-  }
   .game-cover-img {
-    background-size: 100%;
-    background-position: 50%;
-    width: 100%;
-    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
     box-shadow: inset 2px 2px 5px #5f5f5f;
+    border-bottom: 5px solid #eee;
   }
   .game-content :global(th),
   .game-content :global(td) {
@@ -84,6 +76,7 @@
 
   .game-content :global(table) {
     border-spacing: 0;
+    border:1px solid #ccc;
   }
 
   .game-content :global(th) {
@@ -104,27 +97,18 @@
   .game-meta-container {
     position: absolute;
     right: 100%;
-    background: #fff;
-    height: 60%;
-    padding: 10px;
+    height: 100%;
     width: 200px;
-  }
-
-  @media (max-width: 1800px) {
-    .game-meta-container {
-      position: static;
-      background: #f9f9f9;
-      padding: 10px;
-      height:auto;
-      width:auto;
-      right:auto;
-      border-bottom: 5px solid #eee;
-    }
+    top: 0;
+    margin-right: 5px;
   }
 
   .game-meta {
     position: sticky;
-    top: 10px;
+    top: 0;
+    padding: 10px;
+    border-left: 5px solid #eee;
+    background: #f9f9f9;
   }
 
   .game-link a {
@@ -140,6 +124,35 @@
     display: block;
     margin-bottom: 20px;
   }
+  .game-result {
+    position: relative;
+    border-bottom: 1px dotted #ccc;
+    background: #fff;
+    padding: 2px 5px;
+  }
+  .game-result-value {
+    position: absolute;
+    right: 5px;
+    z-index: 5;
+    top: 0;
+    height: 100%;
+  }
+  .game-comments {
+    border-top: 5px solid #eee;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  .game-comment-body {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #eee;
+  }
+  .game-comment-body :global(p) {
+    margin: 0 0 5px 0;
+  }
+  .game-meta-section {
+    margin-bottom: 20px;
+  }
 </style>
 
 <svelte:head>
@@ -149,26 +162,52 @@
 <a class="nav-back" href="games">&lt;- Back</a>
 
 <div class="game-container">
-  <div class="game-info">
-    <h1 class="game-title">{game.name}</h1>
-    <div class="game-cover">
-      <div
-        class="game-cover-img"
-        style="background-image: url('{game.cover}')" />
-    </div>
+  <h1 class="game-title">{game.name}</h1>
+  <div class="game-content">
+    {@html game.html}
   </div>
   <div class="game-meta-container">
+    <div class="game-cover-img" style="background-image: url('{game.cover}')" />
     <div class="game-meta">
-      <h2>Links</h2>
-      {#each game.links as link}
-        <div class="game-link">
-          <div class="game-link-title">{link.title}</div>
-          <a title={link.url} href={link.url}>{link.url}</a>
+      <div class="game-meta-section">
+        <h2>Info</h2>
+        <div class="game-event">
+          {game.event.name}
+          <span class="game-event-type">({game.subsubtype})</span>
+        </div>
+        <div class="game-publish-date" title="{game.timestamp}">{game.ago}</div>
+      </div>
+      <div class="game-meta-section">
+        <h2>Results</h2>
+        {#each game.results as result}
+          <div class="game-result">
+            <div class="game-result-title">{result.title}</div>
+            <div class="game-result-value">{result.result}</div>
+          </div>
+        {/each}
+      </div>
+      <div class="game-meta-section">
+        <h2>Links</h2>
+        {#each game.links as link}
+          <div class="game-link">
+            <a title={link.url} href={link.url}>{link.title}</a>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+  <div class="game-comments">
+    <h2>Comments</h2>
+    <div class="game-comments-container">
+      {#each game.comments as comment}
+        <div class="game-comment">
+          <div class="game-comment-author">{comment.author}</div>
+          <div class="game-comment-created" title="{comment.timestamp}">{comment.ago}</div>
+          <div class="game-comment-body">
+            {@html comment.html}
+          </div>
         </div>
       {/each}
     </div>
-  </div>
-  <div class="game-content">
-    {@html game.body}
   </div>
 </div>

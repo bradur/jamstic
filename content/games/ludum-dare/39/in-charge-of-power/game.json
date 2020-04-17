@@ -81,5 +81,154 @@
             "url": "https://github.com/bradur/LD39/releases/download/release/In.Charge.of.Power.-.LD39.by.bradur.Mac.zip",
             "title": "Linux"
         }
-    ]
+    ],
+    "comments": [
+        {
+            "id": 58141,
+            "parent": 0,
+            "node": 33150,
+            "supernode": 32802,
+            "author": 35298,
+            "created": "2017-08-01T15:18:57Z",
+            "modified": "2017-08-01T15:20:12Z",
+            "version": 66490,
+            "flags": 0,
+            "body": "I think the game could do with a bit of balancing because I found it hard to get over about 20 citizens, but the game is good otherwise. \nIt might be worth adding some more ways to get money, or increasing the amount of coal a processing plant produces so it can provide for 2 coal plants.\nThe music is well made, the concept is interesting, and it's fun to replay.",
+            "love": 0,
+            "timestamp": "8/1/2017, 17:18:57",
+            "ago": "3 years ago"
+        },
+        {
+            "id": 77323,
+            "parent": 0,
+            "node": 33150,
+            "supernode": 32802,
+            "author": 9760,
+            "created": "2017-08-05T15:03:13Z",
+            "modified": "2017-08-05T15:03:13Z",
+            "version": 88034,
+            "flags": 0,
+            "body": "I've always been a fan of Sim City like games so you get bonus points from me! Love the music as well, and gave the game multiple attempts. It seems to get really hard when you have 20 or so citizens. ",
+            "love": 0,
+            "timestamp": "8/5/2017, 17:03:13",
+            "ago": "3 years ago"
+        },
+        {
+            "id": 90429,
+            "parent": 0,
+            "node": 33150,
+            "supernode": 32802,
+            "author": 33835,
+            "created": "2017-08-21T11:45:20Z",
+            "modified": "2017-08-21T11:45:20Z",
+            "version": 102814,
+            "flags": 0,
+            "body": "Nice game.",
+            "love": 0,
+            "timestamp": "8/21/2017, 13:45:20",
+            "ago": "3 years ago"
+        }
+    ],
+    "event": {
+        "id": 32802,
+        "parent": 9,
+        "superparent": 5,
+        "author": 11,
+        "type": "event",
+        "subtype": "ld",
+        "subsubtype": "",
+        "published": "2017-07-06T16:33:09Z",
+        "created": "2017-07-06T16:33:09Z",
+        "modified": "2017-07-28T14:29:34Z",
+        "version": 96562,
+        "slug": "39",
+        "name": "Ludum Dare 39",
+        "body": "Join us for our **39th** major Ludum Dare event. Our 2nd event running on the brand new software!\n\nAgain we're sticking to a classic Ludum Dare, with a **72 hour Jam** and **48 hour Compo**. There may be some minor tweaks to the rules for improved clarity.\n\nFollow the **[/news](/news)** for the latest updates on the event.\n\n* :closed_book: **Rules:** [/ludum-dare/rules](/events/ludum-dare/rules)\n* :green_book: **Game Hosting Guide:** [/ludum-dare/hosting-guide](/events/ludum-dare/hosting-guide)\n* :earth_americas: **Real World Gatherings:** [List of Real World Gatherings (thread)](/events/ludum-dare/39/$32803/real-world-gatherings-for-ludum-dare-39)\n* :tv: **Keynote:** [Welcome to Ludum Dare 39](/events/ludum-dare/39/$32803/welcome-to-ludum-dare-39)",
+        "meta": {
+            "event-start": "2017-07-29T01:00:00Z",
+            "event-end": "2017-08-01T01:00:00Z",
+            "can-theme": "1",
+            "theme-mode": "8",
+            "theme-page-mode-1": "2",
+            "theme-page-mode-2": "2",
+            "theme-page-mode-3": "2",
+            "theme-page-mode-4": "2",
+            "theme-page-name-4": "Final Round",
+            "event-theme": "Running out of Power",
+            "event-group-slug-1": "jam",
+            "event-group-slug-2": "compo",
+            "event-group-name-1": "Jam",
+            "event-group-name-2": "Compo",
+            "grade-01": "Overall",
+            "grade-02": "Fun",
+            "grade-03": "Innovation",
+            "grade-04": "Theme",
+            "grade-05": "Graphics",
+            "grade-06": "Audio",
+            "grade-07": "Humor",
+            "grade-08": "Mood",
+            "grade-05-optional": "1",
+            "grade-06-optional": "1",
+            "grade-07-optional": "1",
+            "grade-08-optional": "1",
+            "can-publish": "0",
+            "can-grade": "0",
+            "event-finished": "1",
+            "theme-idea-limit": "3"
+        },
+        "path": "/events/ludum-dare/39",
+        "parents": [
+            1,
+            5,
+            9
+        ],
+        "love": 0,
+        "timestamp": "7/6/2017, 18:33:09",
+        "ago": "3 years ago"
+    },
+    "results": [
+        {
+            "title": "Overall",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Fun",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Innovation",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Theme",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Graphics",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Audio",
+            "average": 3,
+            "result": "-"
+        },
+        {
+            "title": "Humor",
+            "average": 2,
+            "result": "-"
+        },
+        {
+            "title": "Mood",
+            "average": 3,
+            "result": "-"
+        }
+    ],
+    "released": "2017.07.31 03:25:57",
+    "timestamp": "7/31/2017, 02:25:57",
+    "ago": "3 years ago"
 }

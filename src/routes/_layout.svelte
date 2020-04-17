@@ -7,17 +7,11 @@
 <style>
     main {
         position: relative;
-        max-width: 80%;
+        max-width: 90%;
         background-color: white;
         margin: 0 auto;
         padding: 20px 0;
         box-sizing: border-box;
-    }
-
-    @media (min-width: 1800px) {
-        main {
-            max-width: 1280px;
-        }
     }
 </style>
 
