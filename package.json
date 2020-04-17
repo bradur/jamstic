@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
-    "export": "sapper export --basepath jamstic --legacy",
+    "export": "sapper export --basepath jamstic --legacy --timeout 10000",
     "deploy": "npm run export && node ./scripts/gh-pages.js"
   },
   "dependencies": {
