@@ -97,6 +97,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-strong {
   font-weight: bold;
 }
-nav.svelte-1qjsjys{border-bottom:1px solid rgba(255,62,0,0.1);font-weight:300;padding:0 1em}ul.svelte-1qjsjys{margin:0;padding:0}ul.svelte-1qjsjys::after{content:'';display:block;clear:both}li.svelte-1qjsjys{display:block;float:left}[aria-current].svelte-1qjsjys{position:relative;display:inline-block}[aria-current].svelte-1qjsjys::after{position:absolute;content:'';width:calc(100% - 1em);height:2px;background-color:rgb(255,62,0);display:block;bottom:-1px}a.svelte-1qjsjys{text-decoration:none;padding:1em 0.5em;display:block}
-main.svelte-tuubbv{position:relative;max-width:80%;background-color:white;margin:0 auto;padding:20px 0;box-sizing:border-box}@media(min-width: 1800px){main.svelte-tuubbv{max-width:1280px}}
+nav.svelte-1juv6y5{border-bottom:1px solid #eee;font-weight:300;padding:0 1em;text-align:center}ul.svelte-1juv6y5{margin:0;padding:0;width:1280px;margin:auto;display:inline-block}ul.svelte-1juv6y5::after{content:"";display:block;clear:both}li.svelte-1juv6y5{display:block;float:left}[aria-current].svelte-1juv6y5{position:relative;display:inline-block}[aria-current].svelte-1juv6y5::after{position:absolute;content:"";width:calc(100% - 1em);height:2px;background-color:#ccc;display:block;bottom:-1px}a.svelte-1juv6y5{text-decoration:none;padding:1em 0.5em;display:block}
+main.svelte-oc4qx{position:relative;max-width:90%;background-color:white;margin:0 auto;padding:20px 0;box-sizing:border-box}
 h1.svelte-1uosf9p,p.svelte-1uosf9p{margin:0 auto}h1.svelte-1uosf9p{font-size:2.8em;font-weight:700;margin:0 0 0.5em 0}p.svelte-1uosf9p{margin:1em auto}@media(min-width: 480px){h1.svelte-1uosf9p{font-size:4em}}
