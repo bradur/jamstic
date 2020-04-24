@@ -2,12 +2,12 @@ import config from './../../config/config'
 import { getCleanUrls, findImageUrls } from './md-helper'
 import glob from 'glob'
 import _ from 'lodash'
-import { writeJson, readJson, writeStream, createFolderIfExists, join, resolve, createLocalImagePath, cleanUpGamePath } from './file-helper'
-import { LDJam, stream } from './connector'
+import { writeJson, readJson, writeStream, createFolderIfItDoesntExist, join, resolve, createLocalImagePath, cleanUpGamePath } from './file-helper'
+import { LDJam, streamStatic } from './connector'
 import date from './date'
 
-const downloadAndSaveFile = (url, savePath) => 
-    stream(url).then(
+const downloadAndSaveFile = (url, savePath) =>
+    streamStatic(url).then(
         response =>
             new Promise((resolvePromise, reject) => {
                 response.data
@@ -19,12 +19,12 @@ const downloadAndSaveFile = (url, savePath) =>
 
 const downloadAndSaveImages = async (images) => {
     console.log("Checking for new images...")
-    const count = 0
+    let count = 0
     for (const image of images) {
         const imagePath = createLocalImagePath(image.url, image.path, resolve('./static/'))
-        if (createFolderIfExists(imagePath)) {
+        if (createFolderIfItDoesntExist(imagePath)) {
             count += 1
-            await downloadAndSaveFile(`${staticUrl}/${image.url}`, imagePath)
+            await downloadAndSaveFile(image.url, imagePath)
         }
     }
     if (count > 0) {
@@ -45,6 +45,16 @@ const findImages = (data) => {
     return images
 }
 
+const findCommentImages = (data) => {
+    const images = []
+    data.forEach(game => {
+        game.comments.forEach(comment => {
+            images.push(...getCleanUrls(comment.body).map(url => ({ url, path: game.path })))
+        })
+    })
+    return images
+}
+
 const makeUrlsLocal = (string, gamePath) => {
     findImageUrls(string).forEach(url => {
         string = string.replace(url, `(${createLocalImagePath(url, gamePath)}`)
@@ -59,6 +69,9 @@ const transformData = async (data) => {
         const event = events.data.node.find(event => event.id === game.parent)
         event.timestamp = date.format(event.published)
         event.ago = date.ago(event.published)
+        game.comments.forEach(comment => {
+            comment.body = makeUrlsLocal(comment.body, game.path)
+        })
         return {
             ...game,
             timestamp: date.format(game.published),
@@ -87,7 +100,7 @@ const loadAllSavedGames = () =>
 const saveData = (games) => {
     games.forEach(game => {
         const filePath = join(resolve("./content/games/"), cleanUpGamePath(game.path), "game.json")
-        createFolderIfExists(filePath)
+        createFolderIfItDoesntExist(filePath)
         writeJson(filePath, game)
     })
 }
@@ -95,7 +108,10 @@ const saveData = (games) => {
 const getLinks = (game, platforms) => {
     let index = 1
     let propName = `link-0${index}`
-    const links = []
+    const links = [{
+        url: `https://ldjam.com${game.path}`,
+        title: 'LDJam page'
+    }]
     while (_.has(game.meta, propName)) {
         const tag = parseInt(game.meta[`${propName}-tag`], 10)
         const platform = platforms.find(platform => platform.id === tag)
@@ -117,7 +133,7 @@ const downloadAndSaveComments = async (games) => {
         let comments = await LDJam.getComments(game.id)
         comments = _.get(comments, "data.note", []).map(comment => ({
             ...comment,
-            timestamp:  date.format(comment.created),
+            timestamp: date.format(comment.created),
             ago: date.ago(comment.created),
         }))
         game.comments = comments
@@ -150,6 +166,8 @@ async function getAll() {
         console.log("No new games found!")
     }
     await downloadAndSaveComments(games)
+    const commentImages = findCommentImages(games)
+    await downloadAndSaveImages(commentImages)
     const data = await transformData(games)
     saveData(data)
     return data

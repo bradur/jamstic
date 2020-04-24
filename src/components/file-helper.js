@@ -3,7 +3,7 @@ import path from 'path'
 
 const jsonIndentLength = 4
 const writeStream = savePath => fs.createWriteStream(savePath)
-const createFolderIfExists = folderPath => {
+const createFolderIfItDoesntExist = folderPath => {
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(path.dirname(folderPath), { recursive: true })
         return true
@@ -28,7 +28,7 @@ export {
     writeStream,
     writeJson,
     readJson,
-    createFolderIfExists,
+    createFolderIfItDoesntExist,
     join,
     resolve,
     createLocalImagePath,

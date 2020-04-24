@@ -43,6 +43,30 @@ export function get(request, response, next) {
         return `<pre class='language-javascriptreact'><code>${highlighted}</code></pre>`
     }
 
+    renderer.image = (href, title, text) => {
+        return `<div class='jamstic-image'>
+            <a href='${href}'><img src='${href}'></a>
+            <div class='jamstic-image-title'>${text}</div>
+        </div>`;
+    }
+
+    renderer.link = (href, title, text) => {
+        const url = new URL(href);
+        if (url.hostname === 'www.youtube.com') {
+            const videoHash = url.searchParams.get('v');
+            if (videoHash) {
+                const iframeOptions = Object.entries({
+                    width: 560,
+                    height: 315,
+                    frameborder: 0,
+                    allowfullscreen: ""
+                }).map(option => `${option[0]}='${option[1]}'`).join(" ")
+                return `<iframe src="//www.youtube.com/embed/${videoHash}" ${iframeOptions}></iframe>`
+            }
+        }
+        return `<a href='${href}' title='${title}'>${text}</a>`
+    }
+
     game.comments = game.comments.map(comment => {
         return {
             ...comment,

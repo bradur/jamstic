@@ -1,11 +1,11 @@
 import axios from "axios"
 
-const get = url => axios.get(url)
-const stream = url => axios({url, responseType: 'stream'})
 const apiUrl = 'https://api.ldjam.com/vx/'
 const nodeUrl = `${apiUrl}/node/`
 const staticUrl = "https://static.jam.vg/"
 const feedLimit = 50 // 50 is max limit in ldjam API. won't hit that in a while
+const get = url => axios.get(url)
+const streamStatic = url => axios({url: `${staticUrl}/${url}`, responseType: 'stream'})
 
 class LDJam {
 
@@ -26,4 +26,4 @@ class LDJam {
     }
 }
 
-export { stream, LDJam }
+export { streamStatic, LDJam }

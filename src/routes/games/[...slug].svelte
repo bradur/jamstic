@@ -76,7 +76,7 @@
 
   .game-content :global(table) {
     border-spacing: 0;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
   }
 
   .game-content :global(th) {
@@ -153,6 +153,20 @@
   .game-meta-section {
     margin-bottom: 20px;
   }
+  .game-comment-body :global(img) {
+    max-width: 100%;
+  }
+
+  .game-container :global(.jamstic-image) {
+    background: #fff;
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+
+  .game-container :global(.jamstic-image-title) {
+    padding: 0 5px;
+  }
 </style>
 
 <svelte:head>
@@ -175,7 +189,7 @@
           {game.event.name}
           <span class="game-event-type">({game.subsubtype})</span>
         </div>
-        <div class="game-publish-date" title="{game.timestamp}">{game.ago}</div>
+        <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
       </div>
       <div class="game-meta-section">
         <h2>Results</h2>
@@ -202,7 +216,9 @@
       {#each game.comments as comment}
         <div class="game-comment">
           <div class="game-comment-author">{comment.author}</div>
-          <div class="game-comment-created" title="{comment.timestamp}">{comment.ago}</div>
+          <div class="game-comment-created" title={comment.timestamp}>
+            {comment.ago}
+          </div>
           <div class="game-comment-body">
             {@html comment.html}
           </div>
