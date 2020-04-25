@@ -14,13 +14,14 @@
 
 <style>
   .game-picture {
-    width: 256px;
-    height: 256px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
   .games-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 256px);
+    grid-auto-rows: 256px;
     grid-gap: 10px;
   }
   .games-page {
@@ -40,6 +41,11 @@
   }
   .game-container {
     position: relative;
+    border-left: 2px solid var(--two);
+    border-bottom: 2px solid var(--three);
+    border-right: 2px solid var(--four);
+    border-top: 2px solid var(--five);
+    border-radius:5px;
   }
 
   .game-meta {
@@ -52,16 +58,40 @@
     margin: 0;
     color: #fff;
     text-shadow: 1px 1px 1px black;
-    background: rgba(0, 0, 0, 0.34);
-    border: 1px solid rgba(204, 204, 204, 0.51);
+    background: var(--one);
+    border: 1px solid var(--two);
   }
 
   .game-picture-container {
     margin: 0;
+    font-size: 0;
+    height: 100%;
   }
   .game-meta h3 {
     margin: auto;
-}
+  }
+  .game-palette {
+    position: absolute;
+    top: 0;
+    background: #fff;
+    padding:2px;
+    font-size:0;
+    display:none;
+  }
+  .game-palette div {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    vertical-align: top;
+    margin:0;
+    border:0;
+    padding:0;
+  }
+  .game-palette-one {background:var(--one)}
+  .game-palette-two {background:var(--two)}
+  .game-palette-three {background:var(--three)}
+  .game-palette-four {background:var(--four)}
+  .game-palette-five {background:var(--five)}
 </style>
 
 <svelte:head>
@@ -74,7 +104,7 @@
   <h2>LDJam</h2>
   <div class="games-container">
     {#each games as game}
-      <a class="game-container" href={game.url}>
+      <a class="game-container" href="{game.url}" style="{game.coverColors.css}">
         <div class="game-meta">
           <h3>{game.name}</h3>
           <div class="game-meta-event">
@@ -89,6 +119,13 @@
             class="game-picture"
             src={game.cover}
             alt="Cover picture of {game.name}" />
+        </div>
+        <div class="game-palette">
+          <div class="game-palette-one"></div>
+          <div class="game-palette-two"></div>
+          <div class="game-palette-three"></div>
+          <div class="game-palette-four"></div>
+          <div class="game-palette-five"></div>
         </div>
       </a>
     {/each}

@@ -12,6 +12,7 @@ const createFolderIfItDoesntExist = folderPath => {
 }
 const writeJson = (filePath, data) => fs.writeFileSync(filePath, JSON.stringify(data, null, jsonIndentLength))
 const readJson = file => JSON.parse(fs.readFileSync(file))
+const readFile = file => fs.readFileSync(file)
 const join = function () {
     return path.posix.join(...arguments);
 }
@@ -28,6 +29,7 @@ export {
     writeStream,
     writeJson,
     readJson,
+    readFile,
     createFolderIfItDoesntExist,
     join,
     resolve,

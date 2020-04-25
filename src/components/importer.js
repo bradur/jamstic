@@ -2,9 +2,21 @@ import config from './../../config/config'
 import { getCleanUrls, findImageUrls } from './md-helper'
 import glob from 'glob'
 import _ from 'lodash'
-import { writeJson, readJson, writeStream, createFolderIfItDoesntExist, join, resolve, createLocalImagePath, cleanUpGamePath } from './file-helper'
+import {
+    writeJson,
+    readJson,
+    writeStream,
+    createFolderIfItDoesntExist,
+    join,
+    resolve,
+    createLocalImagePath,
+    cleanUpGamePath,
+    readFile
+} from './file-helper'
 import { LDJam, streamStatic } from './connector'
 import date from './date'
+import pixels from 'image-pixels'
+import palette from 'image-palette'
 
 const downloadAndSaveFile = (url, savePath) =>
     streamStatic(url).then(
@@ -151,6 +163,26 @@ const transformGrades = (game, event) => Object.values(_.mapValues(
     }
 ))
 
+const findCoverColors = async games => {
+    for (const game of games) {
+        const coverPath = createLocalImagePath(game.meta.cover, game.path, resolve('./static/'))
+        console.log("Attempting to read colors...")
+        const p = await pixels(readFile(coverPath))
+        const colors = palette(p).colors
+        const colorsRGBA = colors.map(color => `rgba(${color.join(",")})`)
+        game.coverColors = {
+            colors: colors,
+            css: Object.entries({
+                one: colorsRGBA[0],
+                two: colorsRGBA[1],
+                three: colorsRGBA[2],
+                four: colorsRGBA[3],
+                five: colorsRGBA[4]
+            }).map(entry => `--${entry[0]}: ${entry[1]};`).join("")
+        }
+    }
+}
+
 async function getAll() {
     const profile = await LDJam.getProfile(config.ldjam.profileName)
     const feed = await LDJam.getFeed(profile.data.path[1])
@@ -168,6 +200,7 @@ async function getAll() {
     await downloadAndSaveComments(games)
     const commentImages = findCommentImages(games)
     await downloadAndSaveImages(commentImages)
+    findCoverColors(games)
     const data = await transformData(games)
     saveData(data)
     return data

@@ -18,8 +18,10 @@
 </script>
 
 <style>
+  .page-container {
+    background: var(--one);
+  }
   .game-container {
-    border-left: 5px solid #eee;
     position: relative;
     max-width: 920px;
     margin: 0 auto;
@@ -58,6 +60,9 @@
     align-items: center;
     height: 200px;
     border-bottom: 5px solid #eee;
+    background: linear-gradient(0deg, var(--five) 0%, var(--one) 100%);
+    text-shadow: 2px 2px 0px black;
+    color: #fff;
   }
   .game-cover-img {
     background-size: cover;
@@ -65,7 +70,7 @@
     background-repeat: no-repeat;
     width: 200px;
     height: 200px;
-    box-shadow: inset 2px 2px 5px #5f5f5f;
+    box-shadow: inset 0px 5px 3px 1px var(--one);
     border-bottom: 5px solid #eee;
   }
   .game-content :global(th),
@@ -107,7 +112,6 @@
     position: sticky;
     top: 0;
     padding: 10px;
-    border-left: 5px solid #eee;
     background: #f9f9f9;
   }
 
@@ -121,8 +125,13 @@
 
   .nav-back {
     font-size: 20px;
-    display: block;
-    margin-bottom: 20px;
+    display: inline-block;
+    padding: 5px;
+    background: #fff;
+    border: 5px solid #eee;
+    margin: 10px 0;
+    line-height: 16px;
+    height: 20px;
   }
   .game-result {
     position: relative;
@@ -167,63 +176,76 @@
   .game-container :global(.jamstic-image-title) {
     padding: 0 5px;
   }
+  .page-nav {
+    max-width:920px;
+    margin:0 auto;
+  }
 </style>
 
 <svelte:head>
   <title>{game.name} - bradur's games</title>
 </svelte:head>
+<div
+  class="page-container"
+  style="{game.coverColors.css}"
+>
 
-<a class="nav-back" href="games">&lt;- Back</a>
-
-<div class="game-container">
-  <h1 class="game-title">{game.name}</h1>
-  <div class="game-content">
-    {@html game.html}
+  <div class="page-nav">
+    <a class="nav-back" href="games">&lt;- back</a>
   </div>
-  <div class="game-meta-container">
-    <div class="game-cover-img" style="background-image: url('{game.cover}')" />
-    <div class="game-meta">
-      <div class="game-meta-section">
-        <h2>Info</h2>
-        <div class="game-event">
-          {game.event.name}
-          <span class="game-event-type">({game.subsubtype})</span>
+
+  <div class="game-container">
+    <h1 class="game-title">{game.name}</h1>
+    <div class="game-content">
+      {@html game.html}
+    </div>
+    <div class="game-meta-container">
+      <div
+        class="game-cover-img"
+        style="background-image: url('{game.cover}')" />
+      <div class="game-meta">
+        <div class="game-meta-section">
+          <h2>Info</h2>
+          <div class="game-event">
+            {game.event.name}
+            <span class="game-event-type">({game.subsubtype})</span>
+          </div>
+          <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
         </div>
-        <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
-      </div>
-      <div class="game-meta-section">
-        <h2>Results</h2>
-        {#each game.results as result}
-          <div class="game-result">
-            <div class="game-result-title">{result.title}</div>
-            <div class="game-result-value">{result.result}</div>
-          </div>
-        {/each}
-      </div>
-      <div class="game-meta-section">
-        <h2>Links</h2>
-        {#each game.links as link}
-          <div class="game-link">
-            <a title={link.url} href={link.url}>{link.title}</a>
-          </div>
-        {/each}
+        <div class="game-meta-section">
+          <h2>Results</h2>
+          {#each game.results as result}
+            <div class="game-result">
+              <div class="game-result-title">{result.title}</div>
+              <div class="game-result-value">{result.result}</div>
+            </div>
+          {/each}
+        </div>
+        <div class="game-meta-section">
+          <h2>Links</h2>
+          {#each game.links as link}
+            <div class="game-link">
+              <a title={link.url} href={link.url}>{link.title}</a>
+            </div>
+          {/each}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="game-comments">
-    <h2>Comments</h2>
-    <div class="game-comments-container">
-      {#each game.comments as comment}
-        <div class="game-comment">
-          <div class="game-comment-author">{comment.author}</div>
-          <div class="game-comment-created" title={comment.timestamp}>
-            {comment.ago}
+    <div class="game-comments">
+      <h2>Comments</h2>
+      <div class="game-comments-container">
+        {#each game.comments as comment}
+          <div class="game-comment">
+            <div class="game-comment-author">{comment.author}</div>
+            <div class="game-comment-created" title={comment.timestamp}>
+              {comment.ago}
+            </div>
+            <div class="game-comment-body">
+              {@html comment.html}
+            </div>
           </div>
-          <div class="game-comment-body">
-            {@html comment.html}
-          </div>
-        </div>
-      {/each}
+        {/each}
+      </div>
     </div>
   </div>
 </div>

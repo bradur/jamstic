@@ -13,8 +13,9 @@
   ul {
     margin: 0;
     padding: 0;
-    width: 1280px;
+    max-width: 1280px;
     margin: auto;
+    width: 100%;
     display: inline-block;
   }
 

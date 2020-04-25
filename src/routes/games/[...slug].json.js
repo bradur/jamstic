@@ -52,8 +52,13 @@ export function get(request, response, next) {
 
     renderer.link = (href, title, text) => {
         const url = new URL(href);
-        if (url.hostname === 'www.youtube.com') {
-            const videoHash = url.searchParams.get('v');
+        if (['www.youtube.com', 'youtu.be'].includes(url.hostname)) {
+            let videoHash = '';
+            if (url.hostname === 'youtu.be') {
+                videoHash = url.pathname.replace('/', '')
+            } else {
+                videoHash = url.searchParams.get('v');
+            }
             if (videoHash) {
                 const iframeOptions = Object.entries({
                     width: 560,

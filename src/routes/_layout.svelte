@@ -7,11 +7,13 @@
 <style>
     main {
         position: relative;
-        max-width: 90%;
         background-color: white;
         margin: 0 auto;
-        padding: 20px 0;
         box-sizing: border-box;
+    }
+    :global(.page-container) {
+        margin: 0;
+        padding:0;
     }
 </style>
 
