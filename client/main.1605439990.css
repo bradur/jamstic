@@ -97,6 +97,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-strong {
   font-weight: bold;
 }
-nav.svelte-1juv6y5{border-bottom:1px solid #eee;font-weight:300;padding:0 1em;text-align:center}ul.svelte-1juv6y5{margin:0;padding:0;width:1280px;margin:auto;display:inline-block}ul.svelte-1juv6y5::after{content:"";display:block;clear:both}li.svelte-1juv6y5{display:block;float:left}[aria-current].svelte-1juv6y5{position:relative;display:inline-block}[aria-current].svelte-1juv6y5::after{position:absolute;content:"";width:calc(100% - 1em);height:2px;background-color:#ccc;display:block;bottom:-1px}a.svelte-1juv6y5{text-decoration:none;padding:1em 0.5em;display:block}
-main.svelte-oc4qx{position:relative;max-width:90%;background-color:white;margin:0 auto;padding:20px 0;box-sizing:border-box}
+nav.svelte-xpuord{border-bottom:1px solid #eee;font-weight:300;padding:0 1em;text-align:center}ul.svelte-xpuord{margin:0;padding:0;max-width:1280px;margin:auto;width:100%;display:inline-block}ul.svelte-xpuord::after{content:"";display:block;clear:both}li.svelte-xpuord{display:block;float:left}[aria-current].svelte-xpuord{position:relative;display:inline-block}[aria-current].svelte-xpuord::after{position:absolute;content:"";width:calc(100% - 1em);height:2px;background-color:#ccc;display:block;bottom:-1px}a.svelte-xpuord{text-decoration:none;padding:1em 0.5em;display:block}
+main.svelte-12o83v3{position:relative;background-color:white;margin:0 auto;box-sizing:border-box}.page-container{margin:0;padding:0}
 h1.svelte-1uosf9p,p.svelte-1uosf9p{margin:0 auto}h1.svelte-1uosf9p{font-size:2.8em;font-weight:700;margin:0 0 0.5em 0}p.svelte-1uosf9p{margin:1em auto}@media(min-width: 480px){h1.svelte-1uosf9p{font-size:4em}}
