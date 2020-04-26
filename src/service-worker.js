@@ -8,8 +8,6 @@ const ASSETS = `cache${timestamp}`
 const toCache = shell.concat(files)
 const cached = new Set(toCache)
 
-console.log("gmm")
-console.log(self)
 self.addEventListener('install', event => {
   event.waitUntil(
     caches

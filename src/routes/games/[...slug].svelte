@@ -1,14 +1,14 @@
 <script context="module">
   export async function preload({ params, query }) {
-    const [event, eventId, gameTitle] = params.slug;
-    const jsonPath = `games/${event}/${eventId}/${gameTitle}.json`;
-    const res = await this.fetch(jsonPath);
-    const data = await res.json();
+    const [event, eventId, gameTitle] = params.slug
+    const jsonPath = `games/${event}/${eventId}/${gameTitle}.json`
+    const res = await this.fetch(jsonPath)
+    const data = await res.json()
 
     if (res.status === 200) {
-      return { game: data };
+      return { game: data }
     } else {
-      this.error(res.status, data.message);
+      this.error(res.status, data.message)
     }
   }
 </script>
@@ -207,14 +207,14 @@
         <div class="game-meta-section">
           <h2>Info</h2>
           <div class="game-event">
-            {game.event.name}
+            {game.eventName}
             <span class="game-event-type">({game.subsubtype})</span>
           </div>
           <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
         </div>
         <div class="game-meta-section">
           <h2>Results</h2>
-          {#each game.results as result}
+          {#each game.results.all as result}
             <div class="game-result">
               <div class="game-result-title">{result.title}</div>
               <div class="game-result-value">{result.result}</div>

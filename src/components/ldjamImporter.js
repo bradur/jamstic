@@ -5,54 +5,26 @@ import _ from 'lodash'
 import {
   writeJson,
   readJson,
-  writeStream,
   createFolderIfItDoesntExist,
   join,
   resolve,
   createLocalImagePath,
   cleanUpGamePath,
-  readFile
+  downloadAndSaveImages,
+  findGameCoverColors
 } from './file-helper'
-import { LDJam, streamStatic } from './connector'
+import { LDJam } from './connector'
 import date from './date'
-import pixels from 'image-pixels'
-import palette from 'image-palette'
-
-const downloadAndSaveFile = (url, savePath) =>
-  streamStatic(url).then(
-    response =>
-      new Promise((resolve, reject) => {
-        response.data
-          .pipe(writeStream(savePath))
-          .on('finish', () => resolve())
-          .on('error', e => reject(e))
-      })
-  )
-
-const downloadAndSaveImages = async (images) => {
-  console.log('Checking for new images...')
-  let count = 0
-  for (const image of images) {
-    const imagePath = createLocalImagePath(image.url, image.path, resolve('./static/'))
-    if (createFolderIfItDoesntExist(imagePath)) {
-      count += 1
-      await downloadAndSaveFile(image.url, imagePath)
-    }
-  }
-  if (count > 0) {
-    console.log(`Done! Downloaded & saved ${count} images.`)
-  } else {
-    console.log('No new images detected.')
-  }
-}
 
 const cleanUpUrl = url => url.replace(/\/\/\//g, '')
 
 const findImages = (data) => {
   const images = []
   data.forEach(game => {
-    images.push(...getCleanUrls(game.body).map(url => ({ url, path: game.path })))
-    images.push({ url: cleanUpUrl(game.meta.cover), path: game.path })
+    images.push(...getCleanUrls(game.body).map(url => ({
+      url: LDJam.staticUrl(url), path: game.path
+    })))
+    images.push({ url: LDJam.staticUrl(cleanUpUrl(game.meta.cover)), path: game.path })
   })
   return images
 }
@@ -61,7 +33,9 @@ const findCommentImages = (data) => {
   const images = []
   data.forEach(game => {
     game.comments.forEach(comment => {
-      images.push(...getCleanUrls(comment.body).map(url => ({ url, path: game.path })))
+      images.push(...getCleanUrls(comment.body).map(url => ({
+        url: LDJam.staticUrl(url), path: game.path
+      })))
     })
   })
   return images
@@ -94,7 +68,8 @@ const transformData = async (data) => {
       eventName: event.name,
       cover: createLocalImagePath(game.meta.cover, game.path),
       url: join('games/', cleanUpGamePath(game.path)),
-      links: getLinks(game, platforms.data.tag)
+      links: getLinks(game, platforms.data.tag),
+      eventType: 'LDJam'
     }
   })
 }
@@ -103,11 +78,13 @@ const filterOutExistingGames = (oldGames, feed) => {
   const oldGameIds = oldGames.map(game => game.id)
   return feed.filter(game => {
     return !oldGameIds.includes(game.id)
-  })
+  }).map(game => game.id)
 }
 
-const loadAllSavedGames = () =>
-  glob.sync('content/games/**/*.json', {}).map(file => readJson(file))
+const loadAllSavedGames = () => glob
+  .sync('content/games/**/*.json', {})
+  .map(file => readJson(file))
+  .filter(game => game.eventType === 'LDJam')
 
 const saveData = (games) => {
   games.forEach(game => {
@@ -152,41 +129,35 @@ const downloadAndSaveComments = async (games) => {
   }
 }
 
-const transformGrades = (game, event) => Object.values(_.mapValues(
-  _.pickBy(event.meta, (value, key) => key.includes('grade-') && !key.includes('-optional')),
-  (value, key) => {
-    return {
-      title: value,
-      average: _.get(game.magic, `${key}-average`, '-'),
-      result: _.get(game.magic, `${key}-result`, '-')
+const transformGrades = (game, event) => {
+  const all = Object.values(_.mapValues(
+    _.pickBy(event.meta, (value, key) => key.includes('grade-') && !key.includes('-optional')),
+    (value, key) => {
+      return {
+        title: value,
+        average: _.get(game.magic, `${key}-average`, '-'),
+        result: _.get(game.magic, `${key}-result`, '-')
+      }
     }
-  }
-))
-
-const findCoverColors = async games => {
-  for (const game of games) {
-    const coverPath = createLocalImagePath(game.meta.cover, game.path, resolve('./static/'))
-    console.log('Attempting to read colors...')
-    const p = await pixels(readFile(coverPath))
-    const colors = palette(p).colors
-    const colorsRGBA = colors.map(color => `rgba(${color.join(',')})`)
-    game.coverColors = {
-      colors: colors,
-      css: Object.entries({
-        one: colorsRGBA[0],
-        two: colorsRGBA[1],
-        three: colorsRGBA[2],
-        four: colorsRGBA[3],
-        five: colorsRGBA[4]
-      }).map(entry => `--${entry[0]}: ${entry[1]};`).join('')
-    }
+  ))
+  const overall = all.find(result => result.title === 'Overall')
+  return {
+    all,
+    overall: _.isUndefined(overall) ? { title: '', result: null } : overall
   }
 }
 
-async function getAll () {
+const findCoverColors = async games => {
+  for (let index = 0; index < games.length; index++) {
+    const game = games[index]
+    game.cover = createLocalImagePath(game.meta.cover, game.path)
+    game.coverColors = await findGameCoverColors(game)
+  }
+}
+
+const downloadAll = async (games) => {
   const profile = await LDJam.getProfile(config.ldjam.profileName)
   const feed = await LDJam.getFeed(profile.data.path[1])
-  let games = loadAllSavedGames()
   const newGameIds = filterOutExistingGames(games, feed.data.feed)
   if (newGameIds.length > 0) {
     const newGames = await LDJam.getNodes(newGameIds) // has a limit of 250 in the API
@@ -200,10 +171,18 @@ async function getAll () {
   await downloadAndSaveComments(games)
   const commentImages = findCommentImages(games)
   await downloadAndSaveImages(commentImages)
-  findCoverColors(games)
+  await findCoverColors(games)
   const data = await transformData(games)
   saveData(data)
   return data
+}
+
+async function getAll(download) {
+  let games = loadAllSavedGames()
+  if (download) {
+    games = downloadAll(games)
+  }
+  return games
 }
 
 export { getAll }

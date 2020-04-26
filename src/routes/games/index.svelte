@@ -109,8 +109,8 @@
           <h3>{game.name}</h3>
           <div class="game-meta-event">
             <div class="game-event-name">{game.eventName}</div>
-            {#if game.results[0].result !== '-'}
-              <div class="game-event-result">#{game.results[0].result}</div>
+            {#if game.results.overall.result !== null }
+              <div class="game-event-result">#{game.results.overall.result}</div>
             {/if}
           </div>
         </div>

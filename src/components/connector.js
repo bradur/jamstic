@@ -5,7 +5,7 @@ const nodeUrl = `${apiUrl}/node/`
 const staticUrl = 'https://static.jam.vg/'
 const feedLimit = 50 // 50 is max limit in ldjam API. won't hit that in a while
 const get = url => axios.get(url)
-const streamStatic = url => axios({ url: `${staticUrl}/${url}`, responseType: 'stream' })
+const stream = url => axios({ url, responseType: 'stream' })
 
 class LDJam {
   static getProfile (name) {
@@ -27,6 +27,20 @@ class LDJam {
   static getComments (nodeId) {
     return get(`${apiUrl}/comment/getbynode/${nodeId}`)
   }
+
+  static staticUrl (url) {
+    return `${staticUrl}/${url}`
+  }
 }
 
-export { streamStatic, LDJam }
+class LudumDare {
+  static getProfile (name) {
+    return get(`http://ludumdare.com/compo/author/${name}/`)
+  }
+
+  static getEntry (link) {
+    return get(link)
+  }
+}
+
+export { LDJam, LudumDare, stream }
