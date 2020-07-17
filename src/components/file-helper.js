@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import { stream } from './connector'
-import pixels from 'image-pixels'
-import palette from 'image-palette'
+import getColors from 'get-image-colors'
+import imageType from 'image-type'
 
 const jsonIndentLength = 4
 const writeStream = savePath => fs.createWriteStream(savePath)
@@ -64,9 +64,14 @@ const downloadAndSaveImages = async (images) => {
 const findGameCoverColors = async game => {
   const coverPath = createLocalImagePath(game.cover, game.path, resolve('./static/'))
   console.log('Attempting to read colors...')
-  const p = await pixels(readFile(coverPath))
-  const colors = palette(p).colors
-  const colorsRGBA = colors.map(color => `rgba(${color.join(',')})`)
+  const imgFile = readFile(coverPath)
+  const imgType = imageType(imgFile)
+  let colorsRGBA = []
+  let colors = []
+  await getColors(imgFile, imgType.mime).then(clrs => {
+    colors = clrs
+    colorsRGBA = colors.map(color => `rgba(${color._rgb.join(',')})`)
+  })
   return {
     colors: colors,
     css: Object.entries({
@@ -77,6 +82,7 @@ const findGameCoverColors = async game => {
       five: colorsRGBA[4]
     }).map(entry => `--${entry[0]}: ${entry[1]};`).join('')
   }
+
 }
 
 export {
