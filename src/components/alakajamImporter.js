@@ -13,7 +13,7 @@ import {
   downloadAndSaveImages,
   findGameCoverColors
 } from './file-helper'
-import { LDJam } from './connector'
+import { Alakajam } from './connector'
 import date from './date'
 
 const cleanUpUrl = url => url.replace(/\/\/\//g, '')
@@ -21,10 +21,8 @@ const cleanUpUrl = url => url.replace(/\/\/\//g, '')
 const findImages = (data) => {
   const images = []
   data.forEach(game => {
-    images.push(...getCleanUrls(game.body).map(url => ({
-      url: LDJam.staticUrl(url), path: game.path
-    })))
-    images.push({ url: LDJam.staticUrl(cleanUpUrl(game.meta.cover)), path: game.path })
+    images.push(...findImageUrls(game.body))
+    images.push({ url: Alakajam.staticUrl(cleanUpUrl(game.cover)), path: game.path })
   })
   return images
 }
@@ -48,31 +46,7 @@ const makeUrlsLocal = (string, gamePath) => {
   return string
 }
 
-const transformData = async (data) => {
-  const platforms = await LDJam.getPlatforms()
-  const events = await LDJam.getNodes(data.map(g => g.parent))
-  return data.reverse().map(game => {
-    const event = events.data.node.find(event => event.id === game.parent)
-    event.timestamp = date.format(event.published)
-    event.ago = date.ago(event.published)
-    game.comments.forEach(comment => {
-      comment.body = makeUrlsLocal(comment.body, game.path)
-    })
-    return {
-      ...game,
-      timestamp: date.format(game.published),
-      ago: date.ago(game.published),
-      event: event,
-      results: transformGrades(game, event),
-      body: makeUrlsLocal(game.body, game.path),
-      eventName: event.name,
-      cover: createLocalImagePath(game.meta.cover, game.path),
-      url: join('games/', cleanUpGamePath(game.path)),
-      links: getLinks(game, platforms.data.tag),
-      eventType: 'LDJam'
-    }
-  })
-}
+
 
 const filterOutExistingGames = (oldGames, feed) => {
   const oldGameIds = oldGames.map(game => game.id)
@@ -84,7 +58,7 @@ const filterOutExistingGames = (oldGames, feed) => {
 const loadAllSavedGames = () => glob
   .sync('content/games/**/*.json', {})
   .map(file => readJson(file))
-  .filter(game => game.eventType === 'LDJam')
+  .filter(game => game.eventType === 'Alakajam')
 
 const saveData = (games) => {
   games.forEach(game => {
@@ -92,29 +66,6 @@ const saveData = (games) => {
     createFolderIfItDoesntExist(filePath)
     writeJson(filePath, game)
   })
-}
-
-const getLinks = (game, platforms) => {
-  let index = 1
-  let propName = `link-0${index}`
-  const links = [{
-    url: `https://ldjam.com${game.path}`,
-    title: 'LDJam page'
-  }]
-  while (_.has(game.meta, propName)) {
-    const tag = parseInt(game.meta[`${propName}-tag`], 10)
-    const platform = platforms.find(platform => platform.id === tag)
-    const url = game.meta[propName]
-    if (url !== '') {
-      links.push({
-        url: url,
-        title: platform === undefined ? 'Source' : platform.name
-      })
-    }
-    index += 1
-    propName = `link-0${index}`
-  }
-  return links
 }
 
 const downloadAndSaveComments = async (games) => {
@@ -129,34 +80,99 @@ const downloadAndSaveComments = async (games) => {
   }
 }
 
-const transformGrades = (game, event) => {
-  const all = Object.values(_.mapValues(
-    _.pickBy(event.meta, (value, key) => key.includes('grade-') && !key.includes('-optional')),
-    (value, key) => {
-      return {
-        title: value,
-        average: _.get(game.magic, `${key}-average`, '-'),
-        result: _.get(game.magic, `${key}-result`, '-')
-      }
-    }
-  ))
+const transformGrades = (game) => {
+  const all = []
+  for (let index = 1; index <= game.rating_count / 2; index += 1) {
+    all.push({
+      title: Alakajam.getRatingTitle(index),
+      result: _.get(game.results, `result_{index}`, ''),
+      ratings: _.get(game.ratings, `rating_{index}`, '')
+    })
+  }
   const overall = all.find(result => result.title === 'Overall')
   return {
     all,
-    overall: _.isUndefined(overall) ? { title: '', result: null } : overall
-  }
+    overall: _.isUndefined(overall) ? {title: '', result: null} : overall
+  };
+}
+
+
+const getLinks = (game) => {
+  return game.links.map(link => ({
+    url: link.url,
+    title: link.label
+  }))
+}
+
+const transformData = async (data) => {
+
+  return data.reverse().map(game => {
+    //const events = await Alakajam.getNodes(data.map(g => g.parent))
+    //const event = events.data.node.find(event => event.id === game.parent)
+    //event.timestamp = date.format(event.published)
+    //event.ago = date.ago(event.published)
+    game.comments.forEach(comment => {
+      comment.body = makeUrlsLocal(comment.body, game.path)
+    })
+
+    return {
+      ...game,
+      timestamp: "?",
+      ago: "?",
+      event: game.event_name,
+      results: transformGrades(game),
+      body: game.body,
+      //body: makeUrlsLocal(game.body, game.path),
+      eventName: game.event_name,
+      cover: createLocalImagePath(game.cover, game.path),
+      url: join('games/', cleanUpGamePath(game.path)),
+      links: getLinks(game),
+      eventType: 'Alakajam'
+    }
+  })
 }
 
 const findCoverColors = async games => {
   for (let index = 0; index < games.length; index++) {
     const game = games[index]
-    game.cover = createLocalImagePath(game.meta.cover, game.path)
+    game.cover = createLocalImagePath(game.cover, game.path)
     game.coverColors = await findGameCoverColors(game)
   }
 }
 
+const fetchDetails = async (entries) => {
+  for (let index = 0; index < entries.length; index++) {
+    const entry = entries[index]
+    const fetchedEntry = await fetchEntryDetails(entry)
+    entries[index] = { ...entry, ...fetchedEntry.data }
+  }
+}
+
+const fetchEntryDetails = async (entry) => {
+  return await Alakajam.getEntry(entry.id)
+}
+
+const setUpGamePaths = entries => {
+  entries.forEach(entry => {
+    entry.path = `alakajam/${entry.event_name}/${entry.name}`
+    entry.cover = entry.pictures.previews[0]
+  })
+}
+
 const downloadAll = async (games) => {
-  const profile = await LDJam.getProfile(config.ldjam.profileName)
+  const profile = await Alakajam.getProfile(config.alakajam.profileName)
+  let data = profile.data.entries
+  await fetchDetails(data)
+  data = data.filter(entry => entry.event_id !== null)
+  setUpGamePaths(data)
+  //console.log(data)
+  const images = findImages(data)
+  console.log("images:")
+  console.log(images)
+  await downloadAndSaveImages(images)
+  await findCoverColors(data)
+  data = await transformData(data)
+  /*
   const feed = await LDJam.getFeed(profile.data.path[1])
   const newGameIds = filterOutExistingGames(games, feed.data.feed)
   if (newGameIds.length > 0) {
@@ -172,10 +188,13 @@ const downloadAll = async (games) => {
   const commentImages = findCommentImages(games)
   await downloadAndSaveImages(commentImages)
   await findCoverColors(games)
-  const data = await transformData(games)
+  const data = await transformData(games)*/
   saveData(data)
+  console.log(data)
   return data
 }
+
+
 
 async function getAll(download) {
   let games = loadAllSavedGames()

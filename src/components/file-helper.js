@@ -64,6 +64,7 @@ const downloadAndSaveImages = async (images) => {
 const findGameCoverColors = async game => {
   const coverPath = createLocalImagePath(game.cover, game.path, resolve('./static/'))
   console.log('Attempting to read colors...')
+  console.log(coverPath)
   const imgFile = readFile(coverPath)
   const imgType = imageType(imgFile)
   let colorsRGBA = []
@@ -72,6 +73,7 @@ const findGameCoverColors = async game => {
     colors = clrs
     colorsRGBA = colors.map(color => `rgba(${color._rgb.join(',')})`)
   })
+  console.log("Finished!")
   return {
     colors: colors,
     css: Object.entries({

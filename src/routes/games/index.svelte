@@ -27,6 +27,7 @@
   .games-page {
     max-width: 1280px;
     margin: auto;
+    padding-bottom:100px;
   }
   @media (max-width: 1300px) {
     .games-page {
@@ -101,9 +102,10 @@
 <div class="games-page">
   <h1>Games</h1>
 
-  <h2>LDJam</h2>
+  {#each games as jam}
+  <h2>{jam.name}</h2>
   <div class="games-container">
-    {#each games as game}
+    {#each jam.games as game}
       <a class="game-container" href="{game.url}" style="{game.coverColors.css}">
         <div class="game-meta">
           <h3>{game.name}</h3>
@@ -130,4 +132,5 @@
       </a>
     {/each}
   </div>
+  {/each}
 </div>
