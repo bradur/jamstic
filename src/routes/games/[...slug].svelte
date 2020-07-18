@@ -209,6 +209,7 @@
           <div class="game-event">
             {game.eventName}
             <span class="game-event-type">({game.subsubtype})</span>
+            <span class="game-event-theme">({game.theme})</span>
           </div>
           <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
         </div>

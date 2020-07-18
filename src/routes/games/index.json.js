@@ -8,6 +8,7 @@ export async function get(request, response) {
   response.writeHead(200, {
     'Content-Type': 'application/json'
   })
+  console.log("noerror")
   let alakajamGames = await (alakajam.getAll())
   let ldjamGames = await (ldjam.getAll())
   let ludumDareGames = await (ludumdare.getAll())
@@ -19,5 +20,6 @@ export async function get(request, response) {
     { name: "Ludum Dare", games: ludumDareGames },
     { name: "Alakajam", games: alakajamGames }
   ]
+  console.log("yeserror")
   response.end(JSON.stringify(games))
 }

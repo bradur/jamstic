@@ -51,6 +51,9 @@ class Alakajam {
   static getEntry(entryId) {
     return get(`${this._staticUrl()}/api/entry/${entryId}`)
   }
+  static getEvent(eventId) {
+    return get(`${this._staticUrl()}/api/event/${eventId}`)
+  }
   static staticUrl(url) {
     return `${this._staticUrl()}/${url}`
   }
@@ -62,7 +65,7 @@ class Alakajam {
       "Gameplay",
       "Originality",
       "Theme"
-    ][index]
+    ][index - 1]
   }
 }
 

@@ -69,7 +69,8 @@ const transformData = async (data) => {
       cover: createLocalImagePath(game.meta.cover, game.path),
       url: join('games/', cleanUpGamePath(game.path)),
       links: getLinks(game, platforms.data.tag),
-      eventType: 'LDJam'
+      eventType: 'LDJam',
+      theme: _.get(game, "event.meta.event-theme", '')
     }
   })
 }

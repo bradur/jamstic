@@ -35,6 +35,7 @@ const getEntries = async () => {
     const eventNumber = splitEventName.pop()
     const eventDate = date.getLudumDareEventDate(eventType, eventNumber)
     const name = sanitizeString(title)
+    const slugifiedName = slugify(name, { lower: true , remove: /[*+,~.()'"!:@]/g})
     entries.push({
       eventName: eventName,
       name: name,
@@ -43,7 +44,8 @@ const getEntries = async () => {
       originalUrl: link,
       timestamp: date.format(eventDate),
       ago: date.ago(eventDate),
-      path: `${splitEventName.join('-')}/${eventNumber}/${slugify(name, { lower: true })}`
+      path: `${splitEventName.join('-')}/${eventNumber}/${slugifiedName}`,
+      theme: "?"
     })
   })
   return entries
@@ -67,6 +69,8 @@ const fetchEntryDetails = async (entry) => {
     // Fetch detailed info
     const picture = $('#shotview img').attr('src')
     const body = $($('#compo2 h2').get(1)).prev().text()
+    let eventTheme = $("#content > .ld-post.post > .entry.body > div:first-child strong:last-child").text()
+    eventTheme = eventTheme.replace("Theme:", "").trim()
 
     return {
       coverOriginal: picture,
@@ -74,7 +78,8 @@ const fetchEntryDetails = async (entry) => {
       body: sanitizeString(body),
       links: parseLinks($, entry),
       results: parseRatings($),
-      url: join('games/', entry.path)
+      url: join('games/', entry.path),
+      theme: eventTheme
     }
   }
 
