@@ -15,7 +15,7 @@
     "glob": "^7.1.6",
     "image-type": "^4.1.0",
     "javascript-time-ago": "^2.0.10",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "polka": "next",
     "sanitize": "^2.1.0",
     "sirv": "^0.4.6",
