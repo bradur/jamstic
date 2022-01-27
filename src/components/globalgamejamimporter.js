@@ -108,9 +108,9 @@ const fetchGame = async (gameLink, coverUrl) => {
   $(".field--type-text-long").each((index, elem) => {
     let textTitle = $(elem).find('.field__label').text().trim()
     if (textTitle !== '') {
-      textTitle = `#${textTitle}\n\n`
+      textTitle = `# ${textTitle}\n\n`
     } else {
-      textTitle = `#${title}\n\n`
+      textTitle = `# ${title}\n\n`
     }
     const items = $(elem).find('.field__items').text()
     texts.push(`${textTitle}${items}`)
@@ -119,9 +119,9 @@ const fetchGame = async (gameLink, coverUrl) => {
   $(".field--type-list-text").each((index, elem) => {
     let textTitle = $(elem).find('.field__label').text().trim()
     if (textTitle !== '') {
-      textTitle = `#${textTitle}\n\n`
+      textTitle = `# ${textTitle}\n\n`
     } else {
-      textTitle = `#${title}\n\n`
+      textTitle = `# ${title}\n\n`
     }
     const items = $(elem).find('.field__items').text()
     texts.push(`${textTitle}${items}`)
@@ -156,6 +156,7 @@ const fetchGame = async (gameLink, coverUrl) => {
         result: null
       }
     },
+    subsubtype: 'Jam',
     url: join('games/', path),
     eventName,
     path,

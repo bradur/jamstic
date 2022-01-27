@@ -20,6 +20,7 @@
 <style>
   .page-container {
     background: var(--one);
+    padding-bottom:40px;
   }
   .game-container {
     position: relative;
@@ -50,6 +51,7 @@
   .game-content {
     background: #f9f9f9;
     padding: 5px 20px;
+    padding-bottom:20px;
   }
   .game-title {
     margin: auto;
@@ -180,6 +182,34 @@
     max-width:920px;
     margin:0 auto;
   }
+
+  .game-event span {
+    display:block;
+  }
+
+  .game-screenshot-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .game-image-link {
+    font-size:0;
+    border:4px solid transparent;
+  }
+  .game-image-link:hover {
+    border:4px solid var(--one);
+  }
+  .game-image-link:hover img {
+    object-fit: none;
+  }
+
+  .game-image {
+    max-width:100%;
+  }
 </style>
 
 <svelte:head>
@@ -198,6 +228,14 @@
     <h1 class="game-title">{game.name}</h1>
     <div class="game-content">
       {@html game.html}
+      {#if game.images && game.images.length > 0}
+        <h1>Screenshots</h1>
+        <div class="game-screenshot-container">
+        {#each game.images as image}
+        <a class="game-image-link" href="{image}"><img class="game-image" src="{image}" alt="Screenshot of {game.name}" /></a>
+        {/each}
+        </div>
+      {/if}
     </div>
     <div class="game-meta-container">
       <div
@@ -208,8 +246,8 @@
           <h2>Info</h2>
           <div class="game-event">
             {game.eventName}
-            <span class="game-event-type">({game.subsubtype})</span>
-            <span class="game-event-theme">({game.theme})</span>
+            <span class="game-event-type">Type: {game.subsubtype}</span>
+            <span class="game-event-theme">Theme: {game.theme}</span>
           </div>
           <div class="game-publish-date" title={game.timestamp}>{game.ago}</div>
         </div>
@@ -232,6 +270,7 @@
         </div>
       </div>
     </div>
+    {#if game.comments.length > 0}
     <div class="game-comments">
       <h2>Comments</h2>
       <div class="game-comments-container">
@@ -248,5 +287,6 @@
         {/each}
       </div>
     </div>
+    {/if}
   </div>
 </div>
