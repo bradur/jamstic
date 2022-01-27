@@ -11,17 +11,20 @@ export async function get(request, response) {
   })
   console.log("noerror")
   const download = true
-  const ggjGames = await globalgamejam.getAll(download)
   let alakajamGames = await alakajam.getAll(download)
-  let ldjamGames = await ldjam.getAll(download)
-  let ludumDareGames = await ludumdare.getAll(download)
-  ldjamGames = _.orderBy(ldjamGames, 'eventName', 'desc')
-  ludumDareGames = _.orderBy(ludumDareGames, 'eventName', 'desc')
   alakajamGames = _.orderBy(alakajamGames, 'event_id', 'desc')
+
+  let ldjamGames = await ldjam.getAll(download)
+  ldjamGames = _.orderBy(ldjamGames, 'eventName', 'desc')
+  let ludumDareGames = await ludumdare.getAll(download)
+  ludumDareGames = _.orderBy(ludumDareGames, 'eventName', 'desc')
+
+  const ggjGames = await globalgamejam.getAll(download)
+
   const games = [
     { name: "LDJam", games: ldjamGames },
-    { name: "Ludum Dare", games: ludumDareGames },
     { name: "Alakajam", games: alakajamGames },
+    { name: "Ludum Dare", games: ludumDareGames },
     { name: "Global Game Jam", games: ggjGames }
   ]
   response.end(JSON.stringify(games))

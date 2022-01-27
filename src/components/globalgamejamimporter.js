@@ -42,26 +42,28 @@ const getEntries = async () => {
 
   const $ = cheerio.load(rawPage.data)
 
-  const gameLinks = []
-  const gameCovers = []
+  const entries = []
   $('.past-games .game').each((index, elem) => {
+    const entry = {}
     $(elem).find('.game-image a').each((index, anchorElem) => {
       const href = $(anchorElem).attr('href')
-      gameLinks.push(`${GlobalGameJam._staticUrl()}${href}`)
+      entry.link = `${GlobalGameJam._staticUrl()}${href}`
     })
-    let cover = ''
+    entry.cover = ''
     $(elem).find(".game-image source[media='(min-width: 0)']").each((index, mediaElem) => {
       const href = $(mediaElem).attr('srcset').split("?")[0]
-      cover = `${href}`
+      entry.cover = `${href}`
     })
-    gameCovers.push(cover)
+    entries.push(entry)
   })
 
+  return entries
+}
+
+const fetchDetails = async (entries) => {
   const games = []
-  let index = 0
-  for (const gameLink of gameLinks) {
-    games.push(await fetchGame(gameLink, gameCovers[index]))
-    index += 1
+  for (const entry of entries) {
+    games.push(await fetchGame(entry.link, entry.cover))
   }
   return games
 }
@@ -96,14 +98,6 @@ const fetchGame = async (gameLink, coverUrl) => {
       })
     })
   })
-
-  /*const cover = $(".views-field-field-game-featured-image img")
-
-  let coverUrl = ""
-
-  if (cover[0] !== undefined) {
-    coverUrl = cover[0].attribs["srcset"].split("?")[0]
-  }*/
 
   const eventDate = $("meta[property='article:published_time']")[0].attribs["content"]
   const year = new Date(eventDate).getFullYear()
@@ -205,21 +199,32 @@ const loadAllSavedGames = () => glob
   .map(file => readJson(file))
   .filter(game => game.eventType === 'Global Game Jam')
 
-const downloadAll = async () => {
-  const games = await getEntries()
-  const images = findImages(games)
-  await downloadAndSaveImages(images)
-  await findCoverColors(games)
-  saveData(games)
-  return games
+const filterOutExistingGames = (oldGames, data) => {
+  const oldGameUrls = oldGames.map(game => game.originalUrl)
+  return data.filter(game => {
+    return !oldGameUrls.includes(game.link)
+  })
+}
+
+const downloadAll = async (oldGames) => {
+  const entries = await getEntries()
+  const newGameEntries = filterOutExistingGames(oldGames, entries)
+  let data = [...oldGames]
+  if (newGameEntries.length > 0) {
+    const newGames = await fetchDetails(newGameEntries)
+    data = data.concat(newGames)
+    const images = findImages(data)
+    await downloadAndSaveImages(images)
+  }
+  await findCoverColors(data)
+  saveData(data)
+  return data
 }
 
 async function getAll (download) {
-  let games = []
+  let games = loadAllSavedGames()
   if (download) {
-    games = await downloadAll()
-  } else {
-    games = loadAllSavedGames()
+    games = await downloadAll(games)
   }
   return games
 }

@@ -139,12 +139,15 @@ const findCoverColors = async games => {
   }
 }
 
-const fetchDetails = async (entries) => {
-  for (let index = 0; index < entries.length; index++) {
-    const entry = entries[index]
-    const fetchedEntry = await fetchEntryDetails(entry)
-    entries[index] = { ...entry, ...fetchedEntry.data }
+const fetchDetails = async (newGameEntries) => {
+  const newEntries = []
+  for (const newGameEntry of newGameEntries) {
+    if (newGameEntry.event_id !== null) {
+      const fetchedEntry = await fetchEntryDetails(newGameEntry)
+      newEntries.push({ ...newGameEntry, ...fetchedEntry.data })
+    }
   }
+  return newEntries
 }
 
 const fetchEntryDetails = async (entry) => {
@@ -173,14 +176,24 @@ const setUpGamePaths = entries => {
   })
 }
 
-const downloadAll = async () => {
+const filterOutExistingGames = (oldGames, data) => {
+  const oldGameIds = oldGames.map(game => game.id)
+  return data.filter(game => {
+    return !oldGameIds.includes(game.id)
+  })
+}
+
+const downloadAll = async (games) => {
   const profile = await Alakajam.getProfile(config.alakajam.profileName)
-  let data = profile.data.entries
-  await fetchDetails(data)
-  data = data.filter(entry => entry.event_id !== null)
-  setUpGamePaths(data)
-  const images = findImages(data)
-  await downloadAndSaveImages(images)
+  const newGameEntries = filterOutExistingGames(games, profile.data.entries)
+  let data = [...games]
+  if (newGameEntries.length > 0) {
+    const newGames = await fetchDetails(newGameEntries)
+    setUpGamePaths(newGames)
+    data = data.concat(newGames)
+    const images = findImages(data)
+    await downloadAndSaveImages(images)
+  }
   await findCoverColors(data)
   await fetchEvents(data)
   data = await transformData(data)
@@ -189,11 +202,9 @@ const downloadAll = async () => {
 }
 
 async function getAll(download) {
-  let games = []
+  let games = loadAllSavedGames()
   if (download) {
-    games = await downloadAll()
-  } else {
-    games = loadAllSavedGames()
+    games = await downloadAll(games)
   }
   return games
 }

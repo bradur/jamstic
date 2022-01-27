@@ -179,11 +179,9 @@ const downloadAll = async (games) => {
 }
 
 async function getAll (download) {
-  let games = []
+  let games = loadAllSavedGames()
   if (download) {
-    games = await downloadAll()
-  } else {
-    games = loadAllSavedGames()
+    games = await downloadAll(games)
   }
   return games
 }
