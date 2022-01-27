@@ -4,3 +4,5 @@
 yarn-error.log
 /__sapper__/
 config/config.json
+static/
+content/
