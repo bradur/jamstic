@@ -1,11 +1,19 @@
 import cheerio from 'cheerio'
 import sanitizer from 'sanitize'
 import slugify from 'slugify'
+import glob from 'glob'
 import config from './../../config/config'
 import { GlobalGameJam } from './connector'
 import date from './date'
 import {
-  createFolderIfItDoesntExist, createLocalImagePath, downloadAndSaveImages, findGameCoverColors, join, resolve, writeJson
+  readJson,
+  createFolderIfItDoesntExist,
+  createLocalImagePath,
+  downloadAndSaveImages,
+  findGameCoverColors,
+  join,
+  resolve,
+  writeJson
 } from './file-helper'
 
 const profileName = config.globalgamejam.profileName
@@ -192,13 +200,28 @@ const saveData = (games) => {
   })
 }
 
-async function getAll() {
-  const entries = await getEntries()
-  const images = findImages(entries)
+const loadAllSavedGames = () => glob
+  .sync('content/games/**/*.json', {})
+  .map(file => readJson(file))
+  .filter(game => game.eventType === 'Global Game Jam')
+
+const downloadAll = async () => {
+  const games = await getEntries()
+  const images = findImages(games)
   await downloadAndSaveImages(images)
-  await findCoverColors(entries)
-  saveData(entries)
-  return entries
+  await findCoverColors(games)
+  saveData(games)
+  return games
+}
+
+async function getAll (download) {
+  let games = []
+  if (download) {
+    games = await downloadAll()
+  } else {
+    games = loadAllSavedGames()
+  }
+  return games
 }
 
 export { getAll }

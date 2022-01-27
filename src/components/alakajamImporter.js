@@ -14,7 +14,7 @@ import {
   findGameCoverColors
 } from './file-helper'
 import { Alakajam } from './connector'
-import date from './date'
+import { ago, format, parseAlakajamDate } from './date'
 
 const cleanUpUrl = url => url.replace(/\/\/\//g, '')
 
@@ -89,7 +89,7 @@ const transformGrades = (game) => {
   const overall = all.find(result => result.title === 'Overall')
   const data = {
     all,
-    overall: _.isUndefined(overall) ? {title: '', result: null} : overall
+    overall: _.isUndefined(overall) ? { title: '', result: null } : overall
   };
   return data
 }
@@ -108,14 +108,16 @@ const transformData = async (data) => {
     game.comments.forEach(comment => {
       comment.body = makeUrlsLocal(comment.body, game.path)
     })
-    if (game.event.id === 29){
-      game.event.display_theme = "Depth"
+    if (game.event.id === 29) {
+      game.event.display_theme = 'Depth'
     }
 
+    const eventDate = parseAlakajamDate(game.event.display_dates)
     return {
       ...game,
-      timestamp: "?",
-      ago: "?",
+      timestamp: format(eventDate),
+      subsubtype: game.division,
+      ago: ago(eventDate),
       results: transformGrades(game),
       body: game.body,
       eventName: game.event.title,
@@ -155,7 +157,6 @@ const fetchEvents = async (entries) => {
     let fetchedEvent = await fetchEventDetails(entry)
     fetchedEvent = fetchedEvent.data
     delete fetchedEvent.entries
-    console.log(fetchedEvent)
     entry.event = fetchedEvent
   }
 }
@@ -172,7 +173,7 @@ const setUpGamePaths = entries => {
   })
 }
 
-const downloadAll = async (games) => {
+const downloadAll = async () => {
   const profile = await Alakajam.getProfile(config.alakajam.profileName)
   let data = profile.data.entries
   await fetchDetails(data)
@@ -188,10 +189,11 @@ const downloadAll = async (games) => {
 }
 
 async function getAll(download) {
-  let games = loadAllSavedGames()
-  download = true
+  let games = []
   if (download) {
-    games = downloadAll(games)
+    games = await downloadAll()
+  } else {
+    games = loadAllSavedGames()
   }
   return games
 }

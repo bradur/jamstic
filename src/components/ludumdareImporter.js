@@ -4,6 +4,7 @@ import cheerio from 'cheerio'
 import sanitizer from 'sanitize'
 import _ from 'lodash'
 import date from './date'
+import glob from 'glob'
 import {
   createFolderIfItDoesntExist,
   findGameCoverColors,
@@ -11,7 +12,8 @@ import {
   resolve,
   createLocalImagePath,
   join,
-  writeJson
+  writeJson,
+  readJson
 } from './file-helper'
 import slugify from 'slugify'
 
@@ -153,15 +155,31 @@ const findComments = games => {
   }
 }
 
-async function getAll() {
-  const entries = await getEntries()
-  await fetchDetails(entries)
-  const images = findImages(entries)
+const downloadAll = async () => {
+  const games = await getEntries()
+  await fetchDetails(games)
+  const images = findImages(games)
   await downloadAndSaveImages(images)
-  await findCoverColors(entries)
-  findComments(entries)
-  saveData(entries)
-  return entries
+  await findCoverColors(games)
+  findComments(games)
+  saveData(games)
+  return games
+}
+
+
+const loadAllSavedGames = () => glob
+  .sync('content/games/**/*.json', {})
+  .map(file => readJson(file))
+  .filter(game => game.eventType === 'Ludum Dare')
+
+async function getAll (download) {
+  let games = []
+  if (download) {
+    games = await downloadAll()
+  } else {
+    games = loadAllSavedGames()
+  }
+  return games
 }
 
 export { getAll }

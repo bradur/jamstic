@@ -45,6 +45,26 @@ const eventDates = {
   }
 }
 
+const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+]
+
+const parseAlakajamDate = (timestamp) => {
+  const dateSplit = timestamp.split(" ")
+  let day = dateSplit[dateSplit.length - 3].trim()
+  if (day.includes("-")) {
+    day = day.split("-")[1].trim()
+  }
+  let monthName = dateSplit[dateSplit.length - 2].trim()
+  if (monthName === 'Nov.') {
+    monthName = "November"
+  }
+  const month = monthNames.indexOf(monthName) + 1
+  const year = dateSplit[dateSplit.length - 1].trim()
+  return new Date(`${year}-${month}-${day}`)
+}
+
 const getLudumDareEventDate = (eventName, eventNumber) => {
   const eventDate = _.get(eventDates, `${eventName}.${eventNumber}`, false)
   if (eventDate) {
@@ -53,5 +73,5 @@ const getLudumDareEventDate = (eventName, eventNumber) => {
   return null
 }
 
-export default { format, ago, getLudumDareEventDate }
-export { format, ago, getLudumDareEventDate }
+export default { format, ago, getLudumDareEventDate, parseAlakajamDate }
+export { format, ago, getLudumDareEventDate, parseAlakajamDate }
