@@ -3,6 +3,7 @@ import path from 'path'
 import { stream } from './connector'
 import getColors from 'get-image-colors'
 import imageType from 'image-type'
+import { isEmpty } from 'lodash'
 
 const jsonIndentLength = 4
 const writeStream = savePath => fs.createWriteStream(savePath)
@@ -61,7 +62,31 @@ const downloadAndSaveImages = async (images) => {
   }
 }
 
+const defaultColors = [
+  '#ccc',
+  '#ff3e00',
+  'green',
+  'cyan',
+  'black'
+]
+
+const getDefaultColors = () =>
+  ({
+    colors: defaultColors,
+    css: Object.entries({
+      one: defaultColors[0],
+      two: defaultColors[1],
+      three: defaultColors[2],
+      four: defaultColors[3],
+      five: defaultColors[4]
+    }).map(entry => `--${entry[0]}: ${entry[1]};`).join('')
+  })
+
 const findGameCoverColors = async game => {
+  if (isEmpty(game.cover)) {
+    console.log("Game cover empty, return default colors")
+    return getDefaultColors()
+  }
   const coverPath = createLocalImagePath(game.cover, game.path, resolve('./static/'))
   console.log('Attempting to read colors...')
   console.log(coverPath)

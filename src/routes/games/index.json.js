@@ -2,6 +2,7 @@
 import ldjam from './../../components/ldjamImporter'
 import ludumdare from './../../components/ludumdareImporter'
 import alakajam from './../../components/alakajamImporter'
+import globalgamejam from './../../components/globalgamejamimporter'
 import _ from 'lodash'
 
 export async function get(request, response) {
@@ -9,6 +10,7 @@ export async function get(request, response) {
     'Content-Type': 'application/json'
   })
   console.log("noerror")
+  const ggjGames = await globalgamejam.getAll()
   let alakajamGames = await (alakajam.getAll())
   let ldjamGames = await (ldjam.getAll())
   let ludumDareGames = await (ludumdare.getAll())
@@ -18,8 +20,8 @@ export async function get(request, response) {
   const games = [
     { name: "LDJam", games: ldjamGames },
     { name: "Ludum Dare", games: ludumDareGames },
-    { name: "Alakajam", games: alakajamGames }
+    { name: "Alakajam", games: alakajamGames },
+    { name: "Global Game Jam", games: ggjGames }
   ]
-  console.log("yeserror")
   response.end(JSON.stringify(games))
 }

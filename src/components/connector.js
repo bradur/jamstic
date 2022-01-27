@@ -69,4 +69,15 @@ class Alakajam {
   }
 }
 
-export { LDJam, LudumDare, Alakajam, stream }
+class GlobalGameJam {
+  static _staticUrl () { return 'https://globalgamejam.org' }
+  static getProfile (name) {
+    return get(`${this._staticUrl()}/users/${name}/`)
+  }
+
+  static getEntry (link) {
+    return get(link)
+  }
+}
+
+export { LDJam, LudumDare, Alakajam, GlobalGameJam, stream }
